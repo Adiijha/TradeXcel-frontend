@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .clip-path-custom {
+    clip-path: polygon(10% 10%, 90% 5%, 80% 95%, 20% 90%); /* Creates a tilted quadrilateral */
+    transform: rotate(-10deg); /* Rotate image slightly if needed */
+  }
+
+  /* Add this in your CSS file */
+.pop-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0% 0%, 70% 0%, 100% 100%, 0% 100%); /* Create the trapezoidal shape */
+  transform: scaleX(1.2); /* Make the left part larger (scale image) */
+  object-fit: cover; /* Make sure the image fills the div without distortion */
+  transition: transform 0.3s ease; /* Optional: Smooth transition when hovered */
+}
+
+.pop-image:hover {
+  transform: scaleX(1.0); /* Scale down when hovered for effect */
+}
