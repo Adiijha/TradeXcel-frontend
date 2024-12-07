@@ -1,6 +1,26 @@
 {
     "rewrites": [
       { "source": "/(.*)", "destination": "/" }
+    ],
+    "headers": [
+      {
+        "source": "/fonts/(.*)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
     ]
   }
   
