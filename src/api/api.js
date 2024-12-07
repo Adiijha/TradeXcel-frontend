@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-// Base URL for API
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-console.log("Backend URL:", BASE_URL);
+const BASE_URL = "https://tradexcel-backend-production.up.railway.app/api/v1/users";
+
+console.log("Backend URL:", BASE_URL); // Log to verify the URL is correct
+
 // Function to log in the user
 export const loginUser = async (emailOrUsername, password, pin) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/login`,
+      `${BASE_URL}/login`, // Use the base URL with the login endpoint
       { emailOrUsername, password, pin },
       {
         withCredentials: true, // Ensure cookies are sent/received for authentication
@@ -16,12 +17,15 @@ export const loginUser = async (emailOrUsername, password, pin) => {
 
     return response.data; // Return server response data
   } catch (error) {
+    // Log detailed error info for debugging
+    console.error("Login API Error:", error.response || error.message);
+
     // Extract error message from server or fallback to a default message
-    const message = error?.response?.data?.message || 
-                    error.message || 
-                    "An unexpected error occurred while logging in";
-    
-    console.error("Login API Error:", message);
+    const message =
+      error?.response?.data?.message ||
+      error.message ||
+      "An unexpected error occurred while logging in";
+
     throw new Error(message); // Re-throw error with user-friendly message
   }
 };
