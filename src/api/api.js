@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 // Base URL for API
-const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Function to log in the user
 export const loginUser = async (emailOrUsername, password, pin) => {
@@ -108,18 +107,25 @@ export const logoutUser = async (token) => {
 // Function to get the logged-in user's profile
 export const getUserProfile = async () => {
   try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
     const response = await axios.get(`${BASE_URL}/profile`, {
-      withCredentials: true, // Send and receive cookies
+      withCredentials: true, // Send cookies if the backend uses them
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include the auth token if needed
+        Authorization: `Bearer ${token}`, // Include the token in the request
       },
     });
 
-    return response.data; // Return user profile data
+    return response.data; // Successfully fetched profile data
   } catch (error) {
+    console.error("Error fetching user profile:", error); // Log detailed error for debugging
     const message =
-      error?.response?.data?.message || error.message || "Error fetching user profile";
-    throw new Error(message);
+      error?.response?.data?.message || error.message || "Failed to fetch user profile";
+    throw new Error(message); // Throw a user-friendly error message
   }
 };
 

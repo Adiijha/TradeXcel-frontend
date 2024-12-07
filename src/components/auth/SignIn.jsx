@@ -22,46 +22,36 @@ function SignIn() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
-    // Check if the user is already logged in (using Redux state)
+    console.log("isAuthenticated changed:", isAuthenticated);
     if (isAuthenticated) {
-      // Redirect to the dashboard if the user is logged in
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
-
-  // Function to handle sign in
+  
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setError(null);
     try {
-      setError(null);
-
-      // Regular Expression for validating username (only letters, numbers, and underscores allowed)
-
-      // Call the login API
       const response = await loginUser(emailOrUsername, password, pin);
-      console.log("Login Response:", response); // Log full response
-
-      // Check if the response has an accessToken
+      console.log("Login Response:", response);
+  
       const accessToken = response?.data?.accessToken;
+      if (!accessToken) throw new Error("Access Token not found");
+  
+      // Store the token in cookies
+      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "lax" });
+  
+      // Dispatch login action to Redux
+      dispatch(login(accessToken));
+      localStorage.setItem("authToken", accessToken);
+      console.log("Token stored:", accessToken);
 
-      if (accessToken) {
-        // Store the token in cookies
-        Cookies.set("accessToken", accessToken, { httpOnly: true, secure: true });
-
-        // Dispatch login action to store the accessToken in Redux
-        dispatch(login(accessToken));
-
-        // Redirect to the dashboard
-        navigate("/dashboard");
-      } else {
-        throw new Error("Access Token not found");
-      }
     } catch (err) {
       console.error("Login error:", err);
-      const errorMessage = err?.message || "Something went wrong. Please try again.";
-      setError(errorMessage);
+      setError(err?.message || "Something went wrong. Please try again.");
     }
   };
+  
 
   // Toggle show password
   const togglePasswordVisibility = () => {

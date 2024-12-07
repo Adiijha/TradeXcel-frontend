@@ -17,16 +17,25 @@ function MainContent({ darkMode }) {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const userProfile = await getUserProfile();
-        setUserName(userProfile.data.name); // Assuming the API returns { name: "User Name" }
+        const authToken = localStorage.getItem("authToken");
+        if (!authToken) {
+          throw new Error("Authentication token is missing. Please log in again.");
+        }
+  
+        const userProfile = await getUserProfile(); // Fetch user profile from API
+        console.log("Fetched User Profile:", userProfile); // Log the response for debugging
+  
+        // Assuming the API returns { data: { name: "User Name" } }
+        setUserName(userProfile.data.name);
       } catch (error) {
         console.error("Failed to fetch user profile:", error.message);
         setUserName('User'); // Fallback to 'User' if there's an error
       }
     };
-
+  
     fetchUserProfile(); // Fetch user profile when component mounts
-  }, []);
+  }, []); // Empty dependency array to run only once on mount
+  
 
   return (
     <div className={`flex flex-col md:flex-row w-10/12 md:w-10/12 rounded-2xl h-auto font-pop mx-7 md:mx-auto ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} transition-all duration-300`}>
