@@ -11,7 +11,7 @@ function Newsletter() {
             <h2 className="inline sm:block lg:inline xl:block text-3xl font-semibold pb-3">
               Stay Ahead of the Market with Our Newsletter
             </h2>
-            <p className="text-base">
+            <p className="mt-3 md:mt-0 text-sm md:text-base">
               Subscribe for the latest stock insights, trading tips, platform updates, and competition news.
               Enhance your trading skills with exclusive content delivered straight to your inbox.
             </p>
@@ -27,7 +27,7 @@ function Newsletter() {
                 type="email"
                 autoComplete="email"
                 required
-                className="bg-white font-pop min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 placeholder:text-gray-600"
+                className="bg-grey font-pop min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6 placeholder:text-gray-600"
                 placeholder="Enter your email"
               />
               <button

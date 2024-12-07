@@ -22,16 +22,16 @@ export default function App({ bgColor = 'bg-white' }) {
           <div>
             <h6 className="mb-4 font-semibold text-center md:text-left">Companies</h6>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">About Us</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">About Us</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Blog</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Blog</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Contact</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Contact</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Help</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Help</a>
             </p>
           </div>
 
@@ -39,16 +39,16 @@ export default function App({ bgColor = 'bg-white' }) {
           <div>
             <h6 className="mb-4 font-semibold text-center md:text-left">Resources</h6>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">About Us</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">About Us</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Blog</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Blog</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Contact</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Contact</a>
             </p>
             <p>
-              <a className="text-gray-600" href="#">Help</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Help</a>
             </p>
           </div>
 
@@ -56,22 +56,22 @@ export default function App({ bgColor = 'bg-white' }) {
           <div>
             <h6 className="mb-4 font-semibold text-center md:text-left">Help</h6>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Rules</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Rules</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Our Terms</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Our Terms</a>
             </p>
             <p className="mb-4">
-              <a className="text-gray-600" href="#">Privacy & Policy</a>
+              <a className="text-sm md:text-base text-gray-600" href="#">Privacy & Policy</a>
             </p>
           </div>
 
           {/* Contact */}
           <div>
-            <h6 className="mb-4 font-medium text-center md:text-left">Contact Us</h6>
-            <p className="mb-4 text-gray-600">New Delhi, India</p>
-            <p className="mb-4 text-gray-600">contact@TradeXcel.com</p>
-            <p className="mb-4 text-gray-600">+91 9876 543 210</p>
+            <h6 className="mb-4 font-semibold text-center md:text-left">Contact Us</h6>
+            <p className="text-sm md:text-base mb-4 text-gray-600">New Delhi, India</p>
+            <p className="text-sm md:text-base mb-4 text-gray-600">contact@tradexcel.com</p>
+            <p className="text-sm md:text-base mb-4 text-gray-600">+91 9876 543 210</p>
           </div>
         </div>
       </div>
