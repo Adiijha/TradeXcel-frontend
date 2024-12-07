@@ -3,7 +3,7 @@ import logo from '../../assets/logo-full-bg.png';
 
 export default function App({ bgColor = 'bg-white' }) {
   return (
-    <footer className={`${bgColor} text-center text-black`}>
+    <footer className={`${bgColor} text-center text-black font-pop`}>
       <div className="py-10 text-center md:text-left flex flex-col md:flex-row justify-between px-6 md:px-20">
         {/* Logo and Description */}
         <div className="mb-8 md:mb-0 pr-12">

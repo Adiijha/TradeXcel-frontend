@@ -29,9 +29,11 @@ function Home() {
                 Get Started
               </button>
             </Link>
+            <Link to="/how-it-works">
             <button className="w-full sm:w-auto border-2 px-10 py-4 rounded-lg text-btn-blue border-transparent text-sm">
               How it Works?
             </button>
+            </Link>
           </div>
         </div>
 
@@ -62,7 +64,7 @@ function Home() {
       </div>
 
       {/* Banner Section */}
-      <div className="w-full bg-white py-24 px-6 sm:px-12 md:p-0 lg:px-20">
+      <div className="w-full bg-white py-0 md:py-24 px-6 sm:px-12 md:p-0 lg:px-20">
         <Banner 
           img={person} 
           heading="Real-Time Stock Simulation" 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Banner({ heading, description, img, reverse }) {
   return (
     <div
-      className={`w-full h-full bg-white p-6 md:px-24 py-10 flex flex-col ${
+      className={`w-full h-full bg-white p-6 md:px-24 py-5 md:py-10 flex flex-col ${
         reverse ? 'md:flex-row-reverse' : 'md:flex-row'
       } justify-between gap-6`}
     >

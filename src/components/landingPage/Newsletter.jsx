@@ -34,7 +34,7 @@ function Newsletter() {
                 type="submit"
                 className="font-pop flex rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 mt-4 sm:mt-0"
               >
-                Subscribe
+                <span className="pl-28 md:pl-0">Subscribe</span>
               </button>
             </div>
             <p className="mt-4 text-sm leading-6">We care about your data. Read our <a href="https://www.swellai.com/privacy" className="font-semibold">privacy&nbsp;policy</a>.</p>
