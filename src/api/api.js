@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Base URL for API
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+console.log("Backend URL:", BASE_URL);
 // Function to log in the user
 export const loginUser = async (emailOrUsername, password, pin) => {
   try {
