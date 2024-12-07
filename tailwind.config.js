@@ -12,9 +12,11 @@ export default {
       },
       fontFamily: {
         'pop': ['poppins', 'poppins'],
-        'head' : ['epilogue', 'epilogue']
+        'head' : ['Epilogue', 'epilogue']
       },
     },
   },
-  plugins: [],
+  plugins: [
+    [require('@tailwindcss/typography')],
+  ],
 }
