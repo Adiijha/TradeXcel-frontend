@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = "https://tradexcel-backend-production.up.railway.app/api/v1/users";
-console.log(import.meta.env.VITE_API_BASE_URL);S
+console.log(import.meta.env.VITE_API_BASE_URL);
 
 console.log("Backend URL:", BASE_URL); // Log to verify the URL is correct
 
