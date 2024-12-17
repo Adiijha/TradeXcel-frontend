@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <section className="flex items-center justify-between w-full h-20 py-2 px-8 md:p-6 md:px-16 font-pop">
+    <section className="flex items-center justify-between w-full h-16 md:h-20 py-2 px-8 md:p-6 md:px-16 font-pop">
       {/* Left Section: Logo and Navigation Links */}
       <div className="flex items-center gap-12">
         <Link to="/">
@@ -90,7 +90,7 @@ function Header() {
         }`}
       >
         {/* Close button */}
-        <div className="flex justify-end p-4">
+        <div className="flex justify-end mr-16 p-4">
           <button onClick={toggleMenu} aria-label="Close navigation menu">
             <svg
               xmlns="http://www.w3.org/2000/svg"

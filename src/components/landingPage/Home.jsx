@@ -17,16 +17,18 @@ function Home() {
     <>
       {/* Hero Section */}
       <motion.div
-        className="w-full h-full pb-12 flex flex-col md:flex-row bg-grey relative"
+        className="motion-container w-full h-full pb-12 flex flex-col md:flex-row bg-grey relative"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }} // Trigger when 20% of the element is in view
         transition={{ duration: 0.8 }}
       >
         {/* Left Side (Text) */}
         <motion.div
           className="h-auto w-full md:w-1/2 pl-6 md:pl-12 lg:pl-20 p-6 pt-12 pb-0"
           initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8 }}
         >
           <div className="text-blue-500 font-pop text-lg">Master Virtual Trading</div>
@@ -52,7 +54,8 @@ function Home() {
         <motion.div
           className="h-full w-full md:w-1/2 flex justify-center items-center relative"
           initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8 }}
         >
           <img
@@ -70,13 +73,14 @@ function Home() {
 
       {/* Why Choose TradeXcel Section */}
       <motion.div
-        className="bg-white w-full h-auto p-6 sm:p-10 md:p-12 lg:p-20 text-center"
+        className="bg-white w-full h-auto p-6 sm:p-10 md:p-12 lg:p-20 lg:pb-10 text-center"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <h6 className="text-blue-500 font-pop text-xl font-semibold">Why You Should Choose TradeXcel?</h6>
-        <p className="text-3xl md:text-4xl pt-4 font-semibold font-pop">Master trading with real-time insights!</p>
+        <h6 className="text-blue-500 font-pop text-2xl font-semibold">Why You Should Choose TradeXcel?</h6>
+        <p className="text-3xl md:text-3xl pt-4 font-semibold font-pop">Master trading with real-time insights!</p>
         <div className="gap-6 md:gap-10 mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <Card img={card1} heading="Risk-Free Learning" description="TradeXcel offers a safe environment for learning to trade. Practice without real money while developing confidence and refining your trading skills effectively." />
           <Card img={card2} heading="Engaging Experience" description="Our platform combines competition and gamification. With leaderboards, achievements, and real-time updates, trading becomes exciting and rewarding for every participant." />
@@ -86,9 +90,10 @@ function Home() {
 
       {/* Banner Section */}
       <motion.div
-        className="w-full bg-white py-0 md:py-24 px-6 sm:px-12 md:p-0 lg:px-20"
+        className="w-full bg-white py-0 md:pb-24 px-6 sm:px-12 md:p-0 lg:px-20"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <Banner
@@ -107,7 +112,8 @@ function Home() {
       {/* Newsletter Section */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <Newsletter />

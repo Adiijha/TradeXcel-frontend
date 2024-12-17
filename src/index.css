@@ -33,3 +33,16 @@
 .pop-image:hover {
   transform: scaleX(1.0); /* Scale down when hovered for effect */
 }
+
+/* In your global styles (or root container) */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* For the sections being animated */
+.motion-container {
+  position: relative; /* Ensure the element stays in the flow */
+  overflow: hidden; /* Prevent unexpected shifts during animation */
+}

@@ -7,7 +7,7 @@ export default function App({ bgColor = 'bg-white' }) {
       <div className="py-10 text-center md:text-left flex flex-col md:flex-row justify-between px-6 md:px-20">
         {/* Logo and Description */}
         <div className="mb-8 md:mb-0 pr-12">
-          <div className="flex flex-row gap-3 py-2 text-5xl font-bold text-blue-900">
+          <div className="flex flex-row gap-3 py-2 text-3xl md:text-4xl font-bold text-blue-900">
             <img className="w-12 h-12" src={logo} alt="Logo" />
             TradeXcel
           </div>
