@@ -3,6 +3,7 @@ import logo from "../../assets/logo-full-bg.png";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../api/api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for toggling confirm password visibility
   const [showPin, setShowPin] = useState(false); // State for toggling PIN visibility
   const [selectedOtpMethod, setSelectedOtpMethod] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -87,6 +90,7 @@ function SignUp() {
     };
 
     try {
+      setIsLoading(true);
       // Send registration request
       const response = await registerUser(payload);
 
@@ -106,6 +110,9 @@ function SignUp() {
       const errorMsg = err.response?.data?.message || "Error sending OTP. Please try again.";
       setError(errorMsg);
     }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   // Toggle show password
@@ -124,16 +131,55 @@ function SignUp() {
   };
 
   return (
-    <div className="flex flex-col justify-center font-pop h-full p-4 pb-10 bg-grey">
-      <div className="flex flex-row gap-3 justify-center text-2xl font-bold text-blue-900 text-center pb-8">
-        <img className="w-10 h-10" src={logo} alt="Logo" />
-        TradeXcel
+    <>
+<motion.div
+      className="flex flex-col justify-center font-pop h-full p-4 pb-10 bg-grey"
+      initial={{ opacity: 0, y: -30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+        <div className="flex flex-col items-center font-pop justify-center pt-8">
+        <motion.span
+          className="text-4xl text-blue-900 font-bold font-pop pb-2"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          SIGN UP
+        </motion.span>
+        <motion.p
+          className="text-lg font-pop pb-7"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+        >
+          Create Your Account
+        </motion.p>
       </div>
-      <div className="max-w-md w-full mx-auto border-2 border-btn-blue rounded-2xl p-8 bg-white">
+
+      <motion.div
+        className="max-w-md w-full mx-auto border-2 border-btn-blue rounded-2xl p-8 bg-white"
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-            <div>
+            {error && (
+              <motion.p
+                className="text-red-500 text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                {error}
+              </motion.p>
+            )}
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <label className="text-gray-800 text-sm mb-2 block">Your Name</label>
               <input
                 name="name"
@@ -143,8 +189,12 @@ function SignUp() {
                 value={formData.name}
                 onChange={handleChange}
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               <label className="text-gray-800 text-sm mb-2 block">Your Username</label>
               <input
                 name="username"
@@ -154,8 +204,11 @@ function SignUp() {
                 value={formData.username}
                 onChange={handleChange}
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}>
               <label className="text-gray-800 text-sm mb-2 block">Email ID</label>
               <input
                 name="email"
@@ -165,8 +218,12 @@ function SignUp() {
                 value={formData.email}
                 onChange={handleChange}
               />
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            className="relative">
               <label className="text-gray-800 text-sm mb-2 block">Password</label>
               <input
                 name="password"
@@ -182,8 +239,12 @@ function SignUp() {
               >
                 {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </span>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+             className="relative">
               <label className="text-gray-800 text-sm mb-2 block">Confirm Password</label>
               <input
                 name="cpassword"
@@ -199,8 +260,12 @@ function SignUp() {
               >
                 {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </span>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div 
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+            className="relative">
               <label className="text-gray-800 text-sm mb-2 block">4-Digit PIN</label>
               <input
                 name="pin"
@@ -218,9 +283,12 @@ function SignUp() {
               >
                 {showPin ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
               </span>
-            </div>
+            </motion.div>
             
-            <div>
+            <motion.div
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}>
               <label className="text-gray-800 text-sm mb-2 block">Phone Number</label>
               <div className="flex gap-4">
                 <select
@@ -244,8 +312,12 @@ function SignUp() {
                   onChange={handleChange}
                 />
               </div>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+              >
               <label className="text-gray-800 text-sm mb-2 block">Date of Birth</label>
               <div className="flex gap-4">
                 <select
@@ -301,8 +373,12 @@ function SignUp() {
                   ))}
                 </select>
               </div>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+            initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.0 }}
+              >
       <label className="text-gray-800 text-sm mb-2 block">OTP Method</label>
       <div className="flex gap-4 justify-between relative">
         {/* Phone OTP Option */}
@@ -347,24 +423,37 @@ function SignUp() {
           </label>
         </div>
       </div>
-    </div>
+    </motion.div>
 
-            <button
-              type="submit"
-              className="w-full text-white bg-btn-blue py-3 rounded-md text-sm mt-6"
-            >
-              Sign Up
-            </button>
+    <motion.button
+                type="submit"
+                className="mt-6 w-full py-3 px-4 text-sm tracking-wider flex justify-center items-center font-semibold rounded-md text-white bg-btn-blue hover:bg-blue-600 focus:outline-none"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+          {isLoading ? (
+              <div className="loader border-t-2 border-white w-5 h-5 rounded-full animate-spin"></div>
+              ) : (
+              "Sign Up"
+              )}
+          </motion.button>
           </div>
         </form>
-        <div className="text-center mt-6">
+        <motion.div
+          className="text-center mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <span className="text-sm text-gray-700">Already have an account?</span>
           <Link to="/signin" className="text-blue-500 text-sm font-bold ml-2">
             Login here
           </Link>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+    </>
   );
 }
 
