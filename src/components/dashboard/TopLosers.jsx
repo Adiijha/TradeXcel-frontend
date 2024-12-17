@@ -1,83 +1,100 @@
-import React from 'react';
-import Stock from './Stocks';
+import React, { useEffect, useState } from 'react';
+import Stock from './Stocks'; // Your Stock component that handles chart rendering
 
-// Function to generate random stock prices for 30 days
-const generateRandomStockData = (initialPrice) => {
-  let prices = [];
-  for (let i = 0; i < 30; i++) {
-    initialPrice = parseFloat((initialPrice + (Math.random() * 80 - 40)).toFixed(2)); // Random fluctuation between -40 and +40
-    prices.push(initialPrice);
+// Function to fetch stock data from the backend
+const fetchStockData = async (symbol) => {
+  const url = `http://localhost:5000/api/v1/finance/stock/${symbol}`; // Backend URL
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Check if data is valid
+    if (data.status !== 200) {
+      console.error(`Error fetching stock data: ${data.message}`);
+      return null;
+    }
+
+    const { currentPrice, stockPrices } = data.data;
+
+    return {
+      currentPrice,
+      // percentageChange: percentageChange === "NA" ? "N/A" : percentageChange,
+      // todayChange: todayChange === "NA" ? "N/A" : todayChange,
+      stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice), // Use actual data or fallback
+    };
+  } catch (error) {
+    console.error(`Error fetching data from backend: ${error.message}`);
+    return null;
   }
-  return prices;
 };
 
 function TopLosers({ darkMode }) {
-  // Real data for top losers with short form, full name, random stock price data for 30 days, and percentage change
-  const losers = [
-    { 
-      shortName: 'BHARTI', 
-      fullName: 'Bharti Airtel', 
-      price: '₹ 500', 
-      stockPrices: generateRandomStockData(500), // Random stock prices generated based on initial value
-      percentageChange: -2.321,
-      todayChange: -10.65,
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`), // X-axis labels for 30 days
-    },
-    { 
-      shortName: 'INDUSIND', 
-      fullName: 'IndusInd Bank', 
-      price: '₹ 700', 
-      stockPrices: generateRandomStockData(700),
-      percentageChange: -3.534,
-      todayChange: -15,
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-    },
-    { 
-      shortName: 'HINDALCO', 
-      fullName: 'Hindalco Industries', 
-      price: '₹ 600', 
-      stockPrices: generateRandomStockData(600),
-      percentageChange: -1.887,
-      todayChange: -8.31,
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-    },
-    { 
-      shortName: 'WIPRO', 
-      fullName: 'Wipro', 
-      price: '₹ 800', 
-      stockPrices: generateRandomStockData(800),
-      percentageChange: -4.245,
-      todayChange: -20.45,
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-    },
-    { 
-      shortName: 'POWERGRID', 
-      fullName: 'Power Grid Corporation', 
-      price: '₹ 1,200', 
-      stockPrices: generateRandomStockData(1200),
-      percentageChange: -5.121,
-      todayChange: -25.76,
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-    },
-  ];
+  const [losers, setLosers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      // Updated list of top losers with valid symbols
+      const stockList = [
+        { shortName: "ITC", fullName: "ITC Ltd", symbol: "ITC.NS", percentageChange: "-4.21", todayChange: "23.32" },
+        { shortName: "AXISBANK", fullName: "Axis Bank", symbol: "AXISBANK.NS", percentageChange: "-2.23", todayChange: "145.74" },
+        { shortName: "HINDALCO", fullName: "Hindalco Industries", symbol: "HINDALCO.NS", percentageChange: "-6.31", todayChange: "52.14" },
+        { shortName: "WIPRO", fullName: "Wipro", symbol: "WIPRO.NS", percentageChange: "-9.54", todayChange: "85.95" },
+        { shortName: "POWERGRID", fullName: "Power Grid Corporation", symbol: "POWERGRID.NS", percentageChange: "-8.41", todayChange: "42.32" },
+      ];
+
+      const updatedLosers = await Promise.all(
+        stockList.map(async (stock) => {
+          const data = await fetchStockData(stock.symbol);
+
+          // Use fallback values if data fetching fails
+          const stockData = data || { 
+            currentPrice: 1000, 
+            percentageChange: "N/A", 
+            todayChange: "N/A", 
+            stockPrices: Array(30).fill(1000) 
+          };
+
+          return {
+            ...stock,
+            price: `₹ ${stockData.currentPrice.toFixed(2)}`,
+            // percentageChange: stockData.percentageChange,
+            // todayChange: stockData.todayChange,
+            stockPrices: stockData.stockPrices, // Pass the actual stockPrices here
+            labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`), // Labels for 30 days
+          };
+        })
+      );
+
+      setLosers(updatedLosers);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
       <div className="text-xl font-medium mb-4">Today's Losers</div>
-      {losers.map((stock, index) => (
-        <Stock 
-          key={index} 
-          shortName={stock.shortName} 
-          fullName={stock.fullName} 
-          price={stock.price} 
-          stockPrices={stock.stockPrices} 
-          percentageChange={stock.percentageChange} 
-          todayChange={stock.todayChange}
-          labels={stock.labels}
-
-          darkMode={darkMode}
-        />
-      ))}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        losers.map((stock, index) => (
+          <Stock 
+            key={index} 
+            shortName={stock.shortName} 
+            fullName={stock.fullName} 
+            price={stock.price} 
+            stockPrices={stock.stockPrices} 
+            percentageChange={stock.percentageChange} 
+            todayChange={stock.todayChange}
+            labels={stock.labels} // Pass labels here for chart X-axis
+            darkMode={darkMode}
+          />
+        ))
+      )}
     </div>
   );
 }
