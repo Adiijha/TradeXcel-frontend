@@ -4,7 +4,7 @@ import Stock from './Stocks'; // Your Stock component that handles chart renderi
 // Function to fetch stock data from the backend
 const fetchStockData = async (symbol) => {
 
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Backend URL
+  const BASE_URL = import.meta.env.VITE_API_FINANCE_URL; // Backend URL
   const url = `${BASE_URL}/api/v1/finance/stock/${symbol}`; // Backend URL
   try {
     const response = await fetch(url);
