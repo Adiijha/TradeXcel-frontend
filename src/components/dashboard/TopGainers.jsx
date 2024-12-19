@@ -5,11 +5,11 @@ function TopGainers({ darkMode }) {
   const [gainers, setGainers] = useState([]);
   const [loading, setLoading] = useState(true);
 
- 
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Backend URL
 
   // Fetch stock data from the backend
   const fetchYahooFinanceData = async (symbol) => {
-    const url = `http://localhost:5000/api/v1/finance/stock/${symbol}`; // Backend URL
+    const url = `${BASE_URL}/api/v1/finance/stock/${symbol}`; // Backend URL
     try {
       const response = await fetch(url);
       const data = await response.json();
