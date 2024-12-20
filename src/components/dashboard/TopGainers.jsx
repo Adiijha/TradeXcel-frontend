@@ -1,38 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Stock from "./Stocks"; // Your Stock component that handles chart rendering
+import { getStockData } from "../../api/api";
 
 function TopGainers({ darkMode }) {
   const [gainers, setGainers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const BASE_URL = import.meta.env.VITE_API_FINANCE_URL; // Backend URL
-
-  // Fetch stock data from the backend
-  const fetchYahooFinanceData = async (symbol) => {
-    const url = `${BASE_URL}/api/v1/finance/stock/${symbol}`; // Backend URL
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      // Check if data is valid
-      if (data.status !== 200) {
-        console.error(`Error fetching stock data: ${data.message}`);
-        return null;
-      }
-
-      const { currentPrice, stockPrices } = data.data;
-
-      // Override percentageChange and todayChange with random values
-
-      return {
-        currentPrice,
-        stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice), // Use actual or fallback stock prices
-      };
-    } catch (error) {
-      console.error(`Error fetching data from backend: ${error.message}`);
-      return null;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,7 +22,7 @@ function TopGainers({ darkMode }) {
 
       const updatedGainers = await Promise.all(
         stockList.map(async (stock) => {
-          const data = await fetchYahooFinanceData(stock.symbol);
+          const data = await getStockData(stock.symbol);
 
           // Use fallback values if data fetching fails
           const stockData = data || {

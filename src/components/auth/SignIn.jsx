@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo-full-bg.png";
 import { loginUser } from "../../api/api.js"; // Import the login API function
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie"; // To handle cookies

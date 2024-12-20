@@ -4,6 +4,10 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL; // Import the base URL from 
 console.log(import.meta.env.VITE_API_BASE_URL);
 console.log("Backend URL:", BASE_URL); // Log to verify the URL is correct
 
+const BASE_FINANCE_URL = import.meta.env.VITE_API_FINANCE_URL; // Import the finance API URL
+console.log(import.meta.env.VITE_API_FINANCE_URL);
+console.log("Finance API URL:", BASE_FINANCE_URL); // Log the finance API URL
+
 // Function to log in the user
 export const loginUser = async (emailOrUsername, password, pin) => {
   try {
@@ -29,7 +33,6 @@ export const loginUser = async (emailOrUsername, password, pin) => {
     throw new Error(message); // Re-throw error with user-friendly message
   }
 };
-
 
 // Function to register a user (now registers in PendingUsers collection)
 export const registerUser = async ({ name, username, email, password, dob, phoneNumber, countryCode, pin, otpMethod }) => {
@@ -133,4 +136,31 @@ export const getUserProfile = async () => {
   }
 };
 
+// Fetch stock data from the backend for a specific symbol
+export const getStockData = async (symbol) => {
+  try {
+    // Construct the API URL for the stock symbol
+    const url = `${BASE_FINANCE_URL}/stock/${symbol}`;
+    
+    // Make the request to the backend
+    const response = await axios.get(url);
+    
+    // Handle successful response
+    if (response.data.status !== 200) {
+      console.error(`Error fetching stock data: ${response.data.message}`);
+      return null;
+    }
+
+    const { currentPrice, stockPrices } = response.data.data;
+
+    // Ensure fallback values for stockPrices if missing
+    return {
+      currentPrice,
+      stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice),
+    };
+  } catch (error) {
+    console.error("Error fetching stock data:", error);
+    throw new Error("Failed to fetch stock data");
+  }
+};
 

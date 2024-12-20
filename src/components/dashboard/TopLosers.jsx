@@ -1,34 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Stock from './Stocks'; // Your Stock component that handles chart rendering
-
-// Function to fetch stock data from the backend
-const fetchStockData = async (symbol) => {
-
-  const BASE_URL = import.meta.env.VITE_API_FINANCE_URL; // Backend URL
-  const url = `${BASE_URL}/api/v1/finance/stock/${symbol}`; // Backend URL
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    // Check if data is valid
-    if (data.status !== 200) {
-      console.error(`Error fetching stock data: ${data.message}`);
-      return null;
-    }
-
-    const { currentPrice, stockPrices } = data.data;
-
-    return {
-      currentPrice,
-      // percentageChange: percentageChange === "NA" ? "N/A" : percentageChange,
-      // todayChange: todayChange === "NA" ? "N/A" : todayChange,
-      stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice), // Use actual data or fallback
-    };
-  } catch (error) {
-    console.error(`Error fetching data from backend: ${error.message}`);
-    return null;
-  }
-};
+import { getStockData } from '../../api/api';
 
 function TopLosers({ darkMode }) {
   const [losers, setLosers] = useState([]);
@@ -49,7 +21,7 @@ function TopLosers({ darkMode }) {
 
       const updatedLosers = await Promise.all(
         stockList.map(async (stock) => {
-          const data = await fetchStockData(stock.symbol);
+          const data = await getStockData(stock.symbol);
 
           // Use fallback values if data fetching fails
           const stockData = data || { 
