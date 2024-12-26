@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../dashboard/Header";
 import Vheader from "../dashboard/Vheader";
 import Stocks from "../dashboard/Stocks";
+import ThemeContext from "../../context/ThemeContext.jsx";
+
 
 function Market() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
   const [stocks, setStocks] = useState([
     { name: "AAPL", fullName: "Apple Inc.", price: 150, quantity: 0, todayChange: 2, percentageChange: 1.34, stockPrices: [148, 149, 150, 151, 150, 150], labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] },
     { name: "GOOGL", fullName: "Alphabet Inc.", price: 2800, quantity: 0, todayChange: -15, percentageChange: -0.53, stockPrices: [2800, 2810, 2805, 2803, 2795, 2800], labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] },
@@ -14,19 +17,6 @@ function Market() {
 
   const [balance, setBalance] = useState(10000);
   const [selectedStock, setSelectedStock] = useState(null);
-
-  useEffect(() => {
-    const savedMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(savedMode);
-  }, []);
-
-  const toggleDarkMode = () => {
-    setDarkMode((prevMode) => {
-      const newMode = !prevMode;
-      localStorage.setItem("darkMode", newMode);
-      return newMode;
-    });
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {

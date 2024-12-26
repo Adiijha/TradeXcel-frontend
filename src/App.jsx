@@ -20,6 +20,7 @@ import Portfolio from "./components/portfolio/Portfolio";
 import Market from "./components/market/Market";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import EditProfile from "./components/dashboard/EditProfile";
+import { ThemeProvider } from "./context/ThemeContext";  
 
 
 // ScrollToTop Component
@@ -56,6 +57,7 @@ const RedirectIfLoggedIn = ({ component: Component }) => {
 // App Component
 function App() {
   return (
+    <ThemeProvider>
     <Provider store={store}>
       <Router>
         {/* Ensure the page scrolls to the top on route change */}
@@ -163,12 +165,13 @@ function App() {
             }
           />
 
-
           {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </Provider>
+    </ThemeProvider>
+
   );
 }
 

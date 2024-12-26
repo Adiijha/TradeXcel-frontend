@@ -41,8 +41,12 @@ body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* For the sections being animated */
-.motion-container {
-  position: relative; /* Ensure the element stays in the flow */
-  overflow: hidden; /* Prevent unexpected shifts during animation */
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
 }
