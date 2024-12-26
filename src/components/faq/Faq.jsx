@@ -42,13 +42,13 @@ function Faq() {
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <div className="flex">
           <Vheader darkMode={darkMode} className=" noscroller" />
-          <div className="p-6 w-3/4  m-12">
-            <h1 className="text-4xl font-bold mb-10">Frequently Asked Questions</h1>
+          <div className="p-6 w-full md:w-3/4 m-2 md:m-12">
+            <h1 className="text-3xl md:text-4xl font-bold mb-10">Frequently Asked Questions</h1>
             <div className="space-y-10">
               {faqs.map((faq, index) => (
                 <div key={index} className="border-b pb-4">
                   <h2 
-                    className="text-2xl font-semibold cursor-pointer flex justify-between items-center" 
+                    className="text-xl md:text-2xl font-semibold cursor-pointer flex justify-between items-center" 
                     onClick={() => toggleAnswer(index)}
                   >
                     {faq.question}
@@ -61,7 +61,7 @@ function Faq() {
                         animate={{ opacity: 1, height: "auto" }} 
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="mt-2 text-xl"
+                        className="mt-2 text-lg md:text-xl"
                       >
                         {faq.answer}
                       </motion.div>
