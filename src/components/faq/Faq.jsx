@@ -43,7 +43,8 @@ function Faq() {
         <div className="flex">
           <Vheader darkMode={darkMode} className=" noscroller" />
           <div className="p-6 w-full md:w-3/4 m-2 md:m-12">
-            <h1 className="text-3xl md:text-4xl font-bold mb-10">Frequently Asked Questions</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h1>
+            <div className="h-2 w-60 bg-blue-500 rounded-full mt-2 mb-10"></div>
             <div className="space-y-10">
               {faqs.map((faq, index) => (
                 <div key={index} className="border-b pb-4">
