@@ -74,7 +74,7 @@ function Leaderboard() {
             {leaderboardData.slice(0, 3).map((entry) => (
               <motion.div
                 key={entry.rank}
-                className={`w-full md:w-72 h-24 md:h-48 flex flex-col items-center justify-center rounded-2xl ${
+                className={`w-80 md:w-72 h-24 md:h-48 flex flex-col items-center justify-center rounded-2xl ${
                   darkMode ? "bg-slate-900 text-white" : "bg-blue-100 text-blue-700"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -85,7 +85,7 @@ function Leaderboard() {
                   <span className="text-2xl md:text-5xl font-bold">{entry.rank}</span>
                   <span className="text-lg md:text-2xl font-bold mt-4 md:mt-0 md:ml-4">{entry.name}</span>
                 </div>
-                <div className="flex gap-2 md:flex-col md:gap-0">
+                <div className="flex gap-2 flex-row max-w-40 md:flex-col md:gap-0">
                 <span className="text-xs md:text-lg">{entry.points} Points</span>
                 <span className="text-xs md:text-lg">{entry.contests} Contests</span>
                 <span className="text-xs md:text-lg">{entry.contestsWon} Wins</span>

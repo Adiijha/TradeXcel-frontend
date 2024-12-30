@@ -234,14 +234,14 @@ function Contest() {
               <p className="text-xs md:text-sm font-medium text-blue-500 mb-4">{selectedContest.prize}</p>
               <div className="flex">
               <button
-                className={`px-4 md:py-2 text-sm md:text-md font-medium rounded-md mr-5 ${
+                className={`px-4 py-2 text-sm md:text-md font-medium rounded-md mr-5 ${
                   darkMode ? "bg-blue-500 text-white" : "bg-blue-600 text-white"
                 } hover:opacity-90`}
               >
                 Participate
               </button>
               <button
-                className={`px-4 md:py-2 text-sm md:text-md font-medium rounded-md ${
+                className={`px-4 py-2 text-sm md:text-md font-medium rounded-md ${
                   darkMode ? "bg-blue-500 text-white" : "bg-blue-600 text-white"
                 } hover:opacity-90`}
                 onClick={() => setSelectedContest(null)}
