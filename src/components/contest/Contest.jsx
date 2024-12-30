@@ -113,7 +113,7 @@ function Contest() {
           {/* Toggle Buttons */}
           <div className="flex flex-row justify-center font-medium mb-6 gap-4">
             <button
-              className={`px-6 md:py-2 text-sm md:text-lg rounded-md ${
+              className={`px-6 py-2 text-sm md:text-lg rounded-md ${
                 !showMyContests
                   ? "bg-blue-500 text-white"
                   : darkMode
@@ -128,7 +128,7 @@ function Contest() {
               All Contests
             </button>
             <button
-              className={`px-6 md:py-2 text-sm md:text-lg rounded-md ${
+              className={`px-6 py-2 text-sm md:text-lg rounded-md ${
                 showMyContests
                   ? "bg-blue-500 text-white"
                   : darkMode

@@ -85,9 +85,11 @@ function Leaderboard() {
                   <span className="text-2xl md:text-5xl font-bold">{entry.rank}</span>
                   <span className="text-lg md:text-2xl font-bold mt-4 md:mt-0 md:ml-4">{entry.name}</span>
                 </div>
+                <div className="flex gap-2 md:flex-col md:gap-0">
                 <span className="text-xs md:text-lg">{entry.points} Points</span>
                 <span className="text-xs md:text-lg">{entry.contests} Contests</span>
                 <span className="text-xs md:text-lg">{entry.contestsWon} Wins</span>
+                </div>
                 </div>
               </motion.div>
             ))}

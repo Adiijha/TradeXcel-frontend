@@ -48,7 +48,7 @@ function Header({ darkMode, toggleDarkMode }) {
       } px-4 transition-all duration-300`}
     >
       {/* Logo */}
-      <Link to="/">
+      <Link to="/dashboard">
         <div
           className={`flex flex-row gap-3 py-2 text-xl md:text-3xl font-bold font-pop ${
             darkMode ? 'text-blue-400' : 'text-blue-900'
