@@ -5,10 +5,12 @@ import logo from '../../assets/logo-full-bg.png';
 import rupee from '../../assets/rupee.png';
 import { getUserProfile } from '../../api/api';
 import { Link } from 'react-router-dom';
+import quotes from './Quote';
 
 function MainContent({ darkMode }) {
   const [selectedMarket, setSelectedMarket] = useState('gainers'); // State to track the selected market
   const [userName, setUserName] = useState(''); // State to store user's name
+  const [dailyQuote, setDailyQuote] = useState('');
 
   const handleToggle = (marketType) => {
     setSelectedMarket(marketType);
@@ -34,6 +36,9 @@ function MainContent({ darkMode }) {
     };
   
     fetchUserProfile(); // Fetch user profile when component mounts
+
+    const todayQuote = quotes[new Date().getDate() % quotes.length];
+    setDailyQuote(todayQuote);
   }, []); // Empty dependency array to run only once on mount
   
 
@@ -50,7 +55,14 @@ function MainContent({ darkMode }) {
             <div className=" text-xl mt-10 font-semibold">Today's Quote</div>
             <div className="h-1 w-20 bg-blue-500 rounded-full"></div>
             <div className="text-md md:text-lg mt-2 mb-5">
-              Do not save what is left after spending, but spend what is left after saving.
+            {dailyQuote ? (
+                <>
+                  <p>"{dailyQuote.quote}"</p>
+                  <p className="mt-2 text-sm md:text-md text-right">- {dailyQuote.author}</p>
+                </>
+              ) : (
+                <p>Loading quote...</p>
+              )}
             </div>
           </div>
         </div>

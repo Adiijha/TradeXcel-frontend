@@ -1,142 +1,177 @@
 [
-    {
-      "shortName": "TCS",
-      "fullName": "Tata Consultancy Services",
-      "symbol": "TCS.NS",
-      "percentageChange": "8.25",
-      "todayChange": "125.23"
-    },
-    {
-      "shortName": "INFY",
-      "fullName": "Infosys",
-      "symbol": "INFY.NS",
-      "percentageChange": "5.47",
-      "todayChange": "25.31"
-    },
-    {
-      "shortName": "RELIANCE",
-      "fullName": "Reliance Industries",
-      "symbol": "RELIANCE.NS",
-      "percentageChange": "6.12",
-      "todayChange": "36.12"
-    },
-    {
-      "shortName": "HDFC",
-      "fullName": "HDFC Bank",
-      "symbol": "HDFCBANK.NS",
-      "percentageChange": "2.14",
-      "todayChange": "78.95"
-    },
-    {
-      "shortName": "BAJAJ",
-      "fullName": "Bajaj Finance",
-      "symbol": "BAJFINANCE.NS",
-      "percentageChange": "9.41",
-      "todayChange": "12.34"
-    },
-    {
-      "shortName": "ITC",
-      "fullName": "ITC Ltd",
-      "symbol": "ITC.NS",
-      "percentageChange": "-4.21",
-      "todayChange": "23.32"
-    },
-    {
-      "shortName": "AXISBANK",
-      "fullName": "Axis Bank",
-      "symbol": "AXISBANK.NS",
-      "percentageChange": "-2.23",
-      "todayChange": "145.74"
-    },
-    {
-      "shortName": "HINDALCO",
-      "fullName": "Hindalco Industries",
-      "symbol": "HINDALCO.NS",
-      "percentageChange": "-6.31",
-      "todayChange": "52.14"
-    },
-    {
-      "shortName": "WIPRO",
-      "fullName": "Wipro",
-      "symbol": "WIPRO.NS",
-      "percentageChange": "-9.54",
-      "todayChange": "85.95"
-    },
-    {
-      "shortName": "POWERGRID",
-      "fullName": "Power Grid Corporation",
-      "symbol": "POWERGRID.NS",
-      "percentageChange": "-8.41",
-      "todayChange": "42.32"
-    },
-    {
-      "shortName": "ICICI",
-      "fullName": "ICICI Bank",
-      "symbol": "ICICIBANK.NS",
-      "percentageChange": "4.35",
-      "todayChange": "58.72"
-    },
-    {
-      "shortName": "HCLTECH",
-      "fullName": "HCL Technologies",
-      "symbol": "HCLTECH.NS",
-      "percentageChange": "7.12",
-      "todayChange": "112.36"
-    },
-    {
-      "shortName": "MARUTI",
-      "fullName": "Maruti Suzuki India",
-      "symbol": "MARUTI.NS",
-      "percentageChange": "1.54",
-      "todayChange": "225.47"
-    },
-    {
-      "shortName": "LT",
-      "fullName": "Larsen & Toubro",
-      "symbol": "LT.NS",
-      "percentageChange": "3.89",
-      "todayChange": "56.99"
-    },
-    {
-      "shortName": "SBIN",
-      "fullName": "State Bank of India",
-      "symbol": "SBIN.NS",
-      "percentageChange": "5.14",
-      "todayChange": "142.73"
-    },
-    {
-      "shortName": "BHARTIARTL",
-      "fullName": "Bharti Airtel",
-      "symbol": "BHARTIARTL.NS",
-      "percentageChange": "2.87",
-      "todayChange": "71.98"
-    },
-    {
-      "shortName": "TITAN",
-      "fullName": "Titan Company",
-      "symbol": "TITAN.NS",
-      "percentageChange": "6.65",
-      "todayChange": "109.45"
-    },
-    {
-      "shortName": "ASIANPAINT",
-      "fullName": "Asian Paints",
-      "symbol": "ASIANPAINT.NS",
-      "percentageChange": "4.73",
-      "todayChange": "137.23"
-    },
-    {
-      "shortName": "UPL",
-      "fullName": "UPL Limited",
-      "symbol": "UPL.NS",
-      "percentageChange": "3.01",
-      "todayChange": "64.85"
-    },
-    {
-      "shortName": "ONGC",
-      "fullName": "Oil and Natural Gas Corporation",
-      "symbol": "ONGC.NS",
-      "percentageChange": "2.11",
-      "todayChange": "50.72"
-    }
+  {
+    "shortName": "BANKBARODA",
+    "fullName": "Bank of Baroda",
+    "symbol": "BANKBARODA.NS"
+  },
+  {
+    "shortName": "BHEL",
+    "fullName": "Bharat Heavy Electricals Limited",
+    "symbol": "BHEL.NS"
+  },
+  {
+    "shortName": "INDIGO",
+    "fullName": "InterGlobe Aviation (IndiGo)",
+    "symbol": "INDIGO.NS"
+  },
+  {
+    "shortName": "HDFC",
+    "fullName": "HDFC Bank",
+    "symbol": "HDFCBANK.NS"
+  },
+  {
+    "shortName": "TITAN",
+    "fullName": "Titan Company",
+    "symbol": "TITAN.NS"
+  },
+  {
+    "shortName": "ICICI",
+    "fullName": "ICICI Bank",
+    "symbol": "ICICIBANK.NS"
+  },
+  {
+    "shortName": "RELIANCE",
+    "fullName": "Reliance Industries",
+    "symbol": "RELIANCE.NS"
+  },
+  {
+    "shortName": "UPL",
+    "fullName": "UPL Limited",
+    "symbol": "UPL.NS"
+  },
+  {
+    "shortName": "BAJAJ",
+    "fullName": "Bajaj Finance",
+    "symbol": "BAJFINANCE.NS"
+  },
+  {
+    "shortName": "JSWENERGY",
+    "fullName": "JSW Energy",
+    "symbol": "JSWENERGY.NS"
+  },
+  {
+    "shortName": "GAIL",
+    "fullName": "GAIL (India) Limited",
+    "symbol": "GAIL.NS"
+  },
+  {
+    "shortName": "SUNPHARMA",
+    "fullName": "Sun Pharmaceutical Industries",
+    "symbol": "SUNPHARMA.NS"
+  },
+  {
+    "shortName": "TORNTPHARM",
+    "fullName": "Torrent Pharmaceuticals",
+    "symbol": "TORNTPHARM.NS"
+  },
+  {
+    "shortName": "WIPRO",
+    "fullName": "Wipro",
+    "symbol": "WIPRO.NS"
+  },
+  {
+    "shortName": "ADANIPORTS",
+    "fullName": "Adani Ports and Special Economic Zone",
+    "symbol": "ADANIPORTS.NS"
+  },
+  {
+    "shortName": "SIEMENS",
+    "fullName": "Siemens Limited",
+    "symbol": "SIEMENS.NS"
+  },
+  {
+    "shortName": "HCLTECH",
+    "fullName": "HCL Technologies",
+    "symbol": "HCLTECH.NS"
+  },
+  {
+    "shortName": "ADANIGREEN",
+    "fullName": "Adani Green Energy",
+    "symbol": "ADANIGREEN.NS"
+  },
+  {
+    "shortName": "SBIN",
+    "fullName": "State Bank of India",
+    "symbol": "SBIN.NS"
+  },
+  {
+    "shortName": "HINDALCO",
+    "fullName": "Hindalco Industries",
+    "symbol": "HINDALCO.NS"
+  },
+  {
+    "shortName": "ASIANPAINT",
+    "fullName": "Asian Paints",
+    "symbol": "ASIANPAINT.NS"
+  },
+  {
+    "shortName": "ADANIPOWER",
+    "fullName": "Adani Power",
+    "symbol": "ADANIPOWER.NS"
+  },
+  {
+    "shortName": "BEL",
+    "fullName": "Bharat Electronics Limited",
+    "symbol": "BEL.NS"
+  },
+  {
+    "shortName": "TCS",
+    "fullName": "Tata Consultancy Services",
+    "symbol": "TCS.NS"
+  },
+  {
+    "shortName": "AXISBANK",
+    "fullName": "Axis Bank",
+    "symbol": "AXISBANK.NS"
+  },
+  {
+    "shortName": "MARUTI",
+    "fullName": "Maruti Suzuki India",
+    "symbol": "MARUTI.NS"
+  },
+  {
+    "shortName": "RELIANCE",
+    "fullName": "Reliance Industries",
+    "symbol": "RELIANCE.NS"
+  },
+  {
+    "shortName": "POWERGRID",
+    "fullName": "Power Grid Corporation",
+    "symbol": "POWERGRID.NS"
+  },
+  {
+    "shortName": "PNB",
+    "fullName": "Punjab National Bank",
+    "symbol": "PNB.NS"
+  },
+  {
+    "shortName": "ITC",
+    "fullName": "ITC Ltd",
+    "symbol": "ITC.NS"
+  },
+  {
+    "shortName": "BPCL",
+    "fullName": "Bharat Petroleum Corporation Limited",
+    "symbol": "BPCL.NS"
+  },
+  {
+    "shortName": "BANKBARODA",
+    "fullName": "Bank of Baroda",
+    "symbol": "BANKBARODA.NS"
+  },
+  {
+    "shortName": "ADANIGREEN",
+    "fullName": "Adani Green Energy",
+    "symbol": "ADANIGREEN.NS"
+  },
+  {
+    "shortName": "CANBK",
+    "fullName": "Canara Bank",
+    "symbol": "CANBK.NS"
+  },
+  {
+    "shortName": "BHARTIARTL",
+    "fullName": "Bharti Airtel",
+    "symbol": "BHARTIARTL.NS"
+  }
 ]

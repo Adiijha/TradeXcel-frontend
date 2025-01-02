@@ -141,26 +141,31 @@ export const getStockData = async (symbol) => {
   try {
     // Construct the API URL for the stock symbol
     const url = `${BASE_FINANCE_URL}/stock/${symbol}`;
-    
+
     // Make the request to the backend
     const response = await axios.get(url);
-    
-    // Handle successful response
+
+    // Handle unsuccessful response
     if (response.data.status !== 200) {
       console.error(`Error fetching stock data: ${response.data.message}`);
       return null;
     }
 
-    const { currentPrice, stockPrices } = response.data.data;
+    const { currentPrice, stockPrices, percentageChange, todayChange } = response.data.data;
 
-    // Ensure fallback values for stockPrices if missing
+
     return {
-      currentPrice,
-      stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice),
+      currentPrice: currentPrice || 0,
+      stockPrices: stockPrices || Array.from({ length: 30 }, () => currentPrice || 0),
+      percentageChange: percentageChange, // Convert to number if not already
+      todayChange: todayChange,           // Convert to number if not already
     };
   } catch (error) {
     console.error("Error fetching stock data:", error);
     throw new Error("Failed to fetch stock data");
   }
 };
+
+
+
 

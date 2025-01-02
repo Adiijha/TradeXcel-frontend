@@ -16,6 +16,11 @@ function Leaderboard() {
       { rank: "🥉", name: "Charlie", points: 100, contests: 4, strikeRate: "90%", contestsWon: 3 },
       { rank: 4, name: "David", points: 90, contests: 5, strikeRate: "75%", contestsWon: 2 },
       { rank: 5, name: "Eleanor", points: 85, contests: 4, strikeRate: "70%", contestsWon: 1 },
+      { rank: 6, name: "Fay", points: 80, contests: 3, strikeRate: "66%", contestsWon: 1 },
+      { rank: 7, name: "Grace", points: 75, contests: 3, strikeRate: "70%", contestsWon: 2 },
+      { rank: 8, name: "Hannah", points: 70, contests: 4, strikeRate: "65%", contestsWon: 1 },
+      { rank: 9, name: "Isaac", points: 65, contests: 3, strikeRate: "60%", contestsWon: 2 },
+      { rank: 10, name: "Jack", points: 60, contests: 2, strikeRate: "50%", contestsWon: 1 },
     ],
     weekly: [
       { rank: "🥇", name: "Diana", points: 700, contests: 20, strikeRate: "85%", contestsWon: 17 },
@@ -23,6 +28,11 @@ function Leaderboard() {
       { rank: "🥉", name: "Frank", points: 600, contests: 15, strikeRate: "80%", contestsWon: 12 },
       { rank: 4, name: "George", points: 580, contests: 14, strikeRate: "76%", contestsWon: 11 },
       { rank: 5, name: "Holly", points: 550, contests: 12, strikeRate: "74%", contestsWon: 9 },
+      { rank: 6, name: "Irene", points: 530, contests: 11, strikeRate: "72%", contestsWon: 8 },
+      { rank: 7, name: "Jack", points: 500, contests: 10, strikeRate: "70%", contestsWon: 7 },
+      { rank: 8, name: "Lily", points: 480, contests: 9, strikeRate: "65%", contestsWon: 6 },
+      { rank: 9, name: "Mark", points: 460, contests: 8, strikeRate: "62%", contestsWon: 5 },
+      { rank: 10, name: "Nina", points: 440, contests: 7, strikeRate: "60%", contestsWon: 4 },
     ],
     monthly: [
       { rank: "🥇", name: "Grace", points: 3000, contests: 50, strikeRate: "88%", contestsWon: 44 },
@@ -30,8 +40,14 @@ function Leaderboard() {
       { rank: "🥉", name: "Ivy", points: 2800, contests: 46, strikeRate: "87%", contestsWon: 41 },
       { rank: 4, name: "Jack", points: 2700, contests: 44, strikeRate: "82%", contestsWon: 36 },
       { rank: 5, name: "Karen", points: 2600, contests: 42, strikeRate: "80%", contestsWon: 35 },
+      { rank: 6, name: "Leo", points: 2500, contests: 40, strikeRate: "79%", contestsWon: 33 },
+      { rank: 7, name: "Mona", points: 2400, contests: 38, strikeRate: "78%", contestsWon: 30 },
+      { rank: 8, name: "Nina", points: 2300, contests: 36, strikeRate: "75%", contestsWon: 28 },
+      { rank: 9, name: "Oscar", points: 2200, contests: 34, strikeRate: "74%", contestsWon: 27 },
+      { rank: 10, name: "Paul", points: 2100, contests: 32, strikeRate: "72%", contestsWon: 25 },
     ],
   };
+  
 
   const leaderboardData = dummyData[activeTab];
 
@@ -97,7 +113,7 @@ function Leaderboard() {
 
           {/* Leaderboard Table */}
           <div className="overflow-x-auto">
-            <table className="w-full text-xs md:text-lg text-center border-collapse">
+            <table className="w-full text-xs md:text-lg text-center border-collapse mb-16 md:mb-0">
               <thead className={darkMode ? "bg-gray-700" : "bg-gray-200"}>
                 <tr>
                   <th className="p-3">Rank</th>

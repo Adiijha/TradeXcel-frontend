@@ -18,12 +18,16 @@ function AllStocks({ setSelectedStock, darkMode, filteredStocks }) {
           // Use fallback values if data fetching fails
           const stockData = data || {
             currentPrice: 1000,
+            percentageChange: "N/A", 
+            todayChange: "N/A", 
             stockPrices: Array(30).fill(1000),
           };
 
           return {
             ...stock,
             price: `₹ ${stockData.currentPrice.toFixed(2)}`,
+            percentageChange: `${stockData.percentageChange || 0}%`, // Format as percentage
+            todayChange: `${stockData.todayChange || 0}`, // Format as ₹ with 2 decimal places
             stockPrices: stockData.stockPrices,
             labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
           };

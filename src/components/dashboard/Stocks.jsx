@@ -8,6 +8,9 @@ function Stocks({ shortName, fullName, stockPrices, labels, percentageChange, pr
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
+  // Determine if today's change is positive or negative
+  const isPositive = parseFloat(todayChange) >= 0;
+
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
 
@@ -16,9 +19,9 @@ function Stocks({ shortName, fullName, stockPrices, labels, percentageChange, pr
       chartInstance.current.destroy();
     }
 
-    // Create a gradient color for line chart (based on whether it's a gainer or loser)
+    // Determine color based on today's change
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, percentageChange > 0 ? 'green' : 'red');
+    gradient.addColorStop(0, isPositive ? 'green' : 'red');
     gradient.addColorStop(1, 'white');
 
     // Create a new chart with sharp edges and no fill
@@ -87,10 +90,13 @@ function Stocks({ shortName, fullName, stockPrices, labels, percentageChange, pr
         chartInstance.current.destroy();
       }
     };
-  }, [percentageChange, shortName, stockPrices, labels]); // Re-run this effect when any relevant prop changes
+  }, [percentageChange, shortName, stockPrices, labels, todayChange]); // Re-run this effect when any relevant prop changes
 
-  // Format today's change and percentage change
-  const formattedChange = `${todayChange > 0 ? '+' : ''}${todayChange} (${Math.abs(percentageChange).toFixed(2)}%)`;
+  // Format today's change (string) with correct sign (+ or -)
+const formattedTodayChange = todayChange && todayChange !== 'NA' ? `${todayChange}` : 'NA';
+
+// Format percentage change as a number without + or - (remove the string formatting)
+const formattedPercentageChange = percentageChange && percentageChange !== 'NA' ? `${percentageChange}` : 'NA';
 
   return (
     <div className={`p-3 w-full flex flex-row sm:flex-row items-center rounded-lg shadow-md mb-2 md:mb-4 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} transition-all duration-300`}>
@@ -118,8 +124,8 @@ function Stocks({ shortName, fullName, stockPrices, labels, percentageChange, pr
         <div className="text-sm md:text-lg font-medium">{price}</div>
 
         {/* Display today's change and percentage */}
-        <div className={`text-xs md:text-sm ${todayChange < 0 || percentageChange < 0 ? 'text-red-500' : 'text-green-500'}`}>
-          {formattedChange}
+        <div className={`text-xs md:text-sm ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
+          {formattedTodayChange} ({formattedPercentageChange})
         </div>
       </div>
     </div>

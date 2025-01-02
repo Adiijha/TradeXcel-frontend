@@ -6,45 +6,52 @@ function TopGainers({ darkMode }) {
   const [gainers, setGainers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
 
-      // List of top gainers with valid symbols
       const stockList = [
-        { shortName: "TCS", fullName: "Tata Consultancy Services", symbol: "TCS.NS", percentageChange: "8.25", todayChange: "125.23"},
-        { shortName: "INFY", fullName: "Infosys", symbol: "INFY.NS", percentageChange: "5.47", todayChange: "25.31"},
-        { shortName: "RELIANCE", fullName: "Reliance Industries", symbol: "RELIANCE.NS", percentageChange: "6.12", todayChange: "36.12"},
-        { shortName: "HDFC", fullName: "HDFC Bank", symbol: "HDFCBANK.NS", percentageChange: "2.14", todayChange: "78.95"},
-        { shortName: "BAJAJ", fullName: "Bajaj Finance", symbol: "BAJFINANCE.NS", percentageChange: "9.41", todayChange: "12.34"},
+        { shortName: "TCS", fullName: "Tata Consultancy Services", symbol: "TCS.NS" },
+        { shortName: "INFY", fullName: "Infosys", symbol: "INFY.NS" },
+        { shortName: "RELIANCE", fullName: "Reliance Industries", symbol: "RELIANCE.NS" },
+        { shortName: "HDFC", fullName: "HDFC Bank", symbol: "HDFCBANK.NS" },
+        { shortName: "BAJAJ", fullName: "Bajaj Finance", symbol: "BAJFINANCE.NS" },
       ];
 
-      const updatedGainers = await Promise.all(
-        stockList.map(async (stock) => {
-          const data = await getStockData(stock.symbol);
+      try {
+        const updatedGainers = await Promise.all(
+          stockList.map(async (stock) => {
+            try {
+              const data = await getStockData(stock.symbol);
 
-          // Use fallback values if data fetching fails
-          const stockData = data || {
-            currentPrice: 1000,
-            // percentageChange: `${generateRandomChange().percentageChange}%`,
-            // todayChange: `₹ ${generateRandomChange().todayChange}`,
-            stockPrices: Array(30).fill(1000),
-          };
+              return {
+                ...stock,
+                price: `₹ ${data.currentPrice?.toFixed(2) || "N/A"}`,
+                percentageChange: `${data.percentageChange || 0}%`, // Format as percentage
+                todayChange: `${data.todayChange || 0}`, // Format as ₹ with 2 decimal places
+                stockPrices: data.stockPrices || Array(30).fill(0),
+                labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
+              };
+            } catch (error) {
+              console.error(`Error fetching data for ${stock.symbol}:`, error);
+              return {
+                ...stock,
+                price: "₹ N/A",
+                percentageChange: "N/A%",
+                todayChange: "₹ N/A",
+                stockPrices: Array(30).fill(0),
+                labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
+              };
+            }
+          })
+        );
 
-          return {
-            ...stock,
-            price: `₹ ${stockData.currentPrice.toFixed(2)}`,
-            // percentageChange: stockData.percentageChange,
-            // todayChange: stockData.todayChange,
-            stockPrices: stockData.stockPrices, // Ensure stockPrices are passed
-            labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-          };
-        })
-      );
-
-      setGainers(updatedGainers); // Set the updated stock data
-      setLoading(false);
+        setGainers(updatedGainers);
+      } catch (error) {
+        console.error("Error fetching gainers:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -62,10 +69,10 @@ function TopGainers({ darkMode }) {
             shortName={stock.shortName}
             fullName={stock.fullName}
             price={stock.price}
-            stockPrices={stock.stockPrices} // Pass stockPrices here
             percentageChange={stock.percentageChange}
             todayChange={stock.todayChange}
-            labels={stock.labels} // Pass labels here as well
+            stockPrices={stock.stockPrices}
+            labels={stock.labels}
             darkMode={darkMode}
           />
         ))

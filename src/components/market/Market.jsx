@@ -22,12 +22,16 @@ function Market() {
 
           const stockData = data || {
             currentPrice: 1000,
+            percentageChange: "N/A", 
+            todayChange: "N/A", 
             stockPrices: Array(30).fill(1000),
           };
 
           return {
             ...stock,
             price: stockData.currentPrice,
+            percentageChange: `${stockData.percentageChange || 0}%`, // Format as percentage
+            todayChange: `${stockData.todayChange || 0}`, // Format as ₹ with 2 decimal places
             stockPrices: stockData.stockPrices,
             labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
             quantity: 0, // Initialize quantity
@@ -71,6 +75,7 @@ function Market() {
   );
 
   return (
+    <>
     <div
       className={`${
         darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
@@ -80,9 +85,19 @@ function Market() {
       <div className="flex flex-col md:flex-row">
         <Vheader darkMode={darkMode} />
         <div className="p-6 flex-1 mx-0 mb-20 md:mb-0 m-2 lg:m-10">
-          <h1 className="text-3xl md:text-4xl font-bold mb-1">Market</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Market</h1>
           <div className="h-2 w-28 bg-blue-500 rounded-full mb-6"></div>
-          <p className="mb-4 text-lg md:text-xl">Balance: ₹{balance.toFixed(2)}</p>
+          <div className="flex justify-between items-center mt-6">
+          <p className="mb-4 text-lg md:text-2xl">Balance: ₹ {balance.toFixed(2)}</p>
+          {selectedStock && (
+              <button
+                onClick={() => setSelectedStock(null)}
+                className="px-4 py-2 text-xs md:text-lg bg-blue-500 text-white rounded transition-all duration-300"
+              >
+                Back to Stocks
+              </button>
+            )}
+          </div>
 
           {selectedStock ? (
             <div className="mb-6">
@@ -114,12 +129,6 @@ function Market() {
                   Sell
                 </button>
               </div>
-              <button
-                onClick={() => setSelectedStock(null)}
-                className="mt-6 px-4 py-2 bg-blue-500 text-white rounded transition-all duration-300"
-              >
-                Back to Stocks List
-              </button>
             </div>
           ) : (
             <div
@@ -151,6 +160,7 @@ function Market() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

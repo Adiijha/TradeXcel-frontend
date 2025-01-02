@@ -12,11 +12,31 @@ function TopLosers({ darkMode }) {
 
       // Updated list of top losers with valid symbols
       const stockList = [
-        { shortName: "ITC", fullName: "ITC Ltd", symbol: "ITC.NS", percentageChange: "-4.21", todayChange: "23.32" },
-        { shortName: "AXISBANK", fullName: "Axis Bank", symbol: "AXISBANK.NS", percentageChange: "-2.23", todayChange: "145.74" },
-        { shortName: "HINDALCO", fullName: "Hindalco Industries", symbol: "HINDALCO.NS", percentageChange: "-6.31", todayChange: "52.14" },
-        { shortName: "WIPRO", fullName: "Wipro", symbol: "WIPRO.NS", percentageChange: "-9.54", todayChange: "85.95" },
-        { shortName: "POWERGRID", fullName: "Power Grid Corporation", symbol: "POWERGRID.NS", percentageChange: "-8.41", todayChange: "42.32" },
+        {
+          "shortName": "CANBK",
+          "fullName": "Canara Bank",
+          "symbol": "CANBK.NS"
+        },
+        {
+          "shortName": "ADANIPOWER",
+          "fullName": "Adani Power",
+          "symbol": "ADANIPOWER.NS"
+        },
+        {
+          "shortName": "SIEMENS",
+          "fullName": "Siemens Limited",
+          "symbol": "SIEMENS.NS"
+        },
+        {
+          "shortName": "BEL",
+          "fullName": "Bharat Electronics Limited",
+          "symbol": "BEL.NS"
+        },
+        {
+          "shortName": "BPCL",
+          "fullName": "Bharat Petroleum Corporation Limited",
+          "symbol": "BPCL.NS"
+        }
       ];
 
       const updatedLosers = await Promise.all(
@@ -34,8 +54,8 @@ function TopLosers({ darkMode }) {
           return {
             ...stock,
             price: `₹ ${stockData.currentPrice.toFixed(2)}`,
-            // percentageChange: stockData.percentageChange,
-            // todayChange: stockData.todayChange,
+            percentageChange: `${data.percentageChange || 0}%`, // Format as percentage
+            todayChange: `${data.todayChange || 0}`, // Format as ₹ with 2 decimal places
             stockPrices: stockData.stockPrices, // Pass the actual stockPrices here
             labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`), // Labels for 30 days
           };
