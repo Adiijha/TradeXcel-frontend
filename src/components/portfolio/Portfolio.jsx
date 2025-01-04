@@ -31,7 +31,7 @@ function Portfolio() {
             <div className="h-2 w-44 bg-blue-500 rounded-full mb-6"></div>
 
             {/* Portfolio Summary Section */}
-            <section className={`p-6 rounded-lg w-72 md:w-full shadow-lg ${darkMode ? "bg-gray-900" : "bg-gray-50"} transition-all duration-300`}>
+            <section className={`p-6 rounded-lg w-full shadow-lg ${darkMode ? "bg-gray-900" : "bg-gray-50"} transition-all duration-300`}>
               <h2 className="text-xl md:text-2xl font-semibold mb-6">Portfolio Overview</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div
@@ -62,7 +62,7 @@ function Portfolio() {
             </section>
 
             {/* Stock Holdings Section */}
-            <section className={`mt-8 w-72 md:w-full p-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-900" : "bg-gray-50"} transition-all duration-300`}>
+            <section className={`mt-8 w-full p-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-900" : "bg-gray-50"} transition-all duration-300`}>
               <h2 className="text-xl md:text-2xl font-semibold mb-6">Stock Holdings</h2>
               <table className="w-full text-left border-collapse">
                 <thead>
