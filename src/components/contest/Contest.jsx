@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Header from "../dashboard/Header";
 import Vheader from "../dashboard/Vheader";
 import ThemeContext from "../../context/ThemeContext.jsx";
+import { Helmet } from "react-helmet";
 
 function Contest() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -96,6 +97,10 @@ function Contest() {
       });
 
   return (
+    <>
+    <Helmet>
+          <title>Contests</title>
+        </Helmet>
     <div
       className={
         darkMode
@@ -107,8 +112,8 @@ function Contest() {
       <div className="flex flex-col lg:flex-row">
         <Vheader darkMode={darkMode} />
         <main className="flex-1 pb-24 md:pb-0 p-6 m-2 md:m-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Contests</h1>
-          <div className="h-2 w-36 bg-blue-500 rounded-full mb-6"></div>
+          <h1 className="text-3xl md:text-4xl font-bold">Contests</h1>
+          <div className="h-2 w-32 md:w-36 bg-blue-500 rounded-full mb-6"></div>
 
           {/* Toggle Buttons */}
           <div className="flex flex-row justify-center font-medium mb-6 gap-4">
@@ -255,6 +260,7 @@ function Contest() {
         </main>
       </div>
     </div>
+    </>
   );
 }
 

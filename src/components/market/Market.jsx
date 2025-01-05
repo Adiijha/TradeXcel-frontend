@@ -6,6 +6,7 @@ import ThemeContext from "../../context/ThemeContext.jsx";
 import { getStockData } from "../../api/api";
 import AllStocks from "./AllStocks.jsx";
 import stockList from "./StockData.json";
+import { Helmet } from 'react-helmet';
 
 function Market() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -76,6 +77,9 @@ function Market() {
 
   return (
     <>
+    <Helmet>
+      <title>Market</title>
+    </Helmet>
     <div
       className={`${
         darkMode ? "bg-gray-800 text-white" : "bg-white text-black"

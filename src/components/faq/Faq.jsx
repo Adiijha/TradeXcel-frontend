@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from '../dashboard/Header';
 import Vheader from '../dashboard/Vheader';
 import ThemeContext from "../../context/ThemeContext.jsx";
+import { Helmet } from 'react-helmet';
 
 function Faq() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -38,6 +39,9 @@ function Faq() {
 
   return (
     <>
+    <Helmet>
+      <title>FAQ</title>
+    </Helmet>
       <div className={darkMode ? "bg-gray-800 text-white min-h-screen transition-all duration-300" : "bg-white text-black min-h-screen transition-all duration-300"}>
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <div className="flex">

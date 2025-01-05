@@ -136,13 +136,13 @@ function Header({ darkMode, toggleDarkMode }) {
               } rounded-md shadow-lg z-10`}
             >
               <ul className="flex flex-col text-sm font-pop">
-                <Link to="/edit-profile">
+                <Link to="/your-profile">
                   <li
                     className={`p-2 cursor-pointer ${
                       darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-100'
                     }`}
                   >
-                    Edit Profile
+                    Your Profile
                   </li>
                 </Link>
                 <li

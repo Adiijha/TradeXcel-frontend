@@ -3,6 +3,7 @@ import Header from '../dashboard/Header';
 import Vheader from '../dashboard/Vheader';
 import { useContext } from "react";
 import ThemeContext from "../../context/ThemeContext.jsx";
+import { Helmet } from 'react-helmet';
 
 function Portfolio() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -22,6 +23,9 @@ function Portfolio() {
 
   return (
     <>
+      <Helmet>
+        <title>Portfolio</title>
+      </Helmet>
       <div className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"} font-pop mb-16 md:mb-0  transition-all duration-300`}>
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <div className="flex">

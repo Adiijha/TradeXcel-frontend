@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Header from "../dashboard/Header";
 import Vheader from "../dashboard/Vheader";
 import ThemeContext from "../../context/ThemeContext.jsx";
+import { Helmet } from "react-helmet";
 
 function Leaderboard() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -52,6 +53,10 @@ function Leaderboard() {
   const leaderboardData = dummyData[activeTab];
 
   return (
+    <>
+    <Helmet>
+    <title>Leaderboard</title>
+    </Helmet>
     <div
       className={
         darkMode
@@ -148,6 +153,7 @@ function Leaderboard() {
         </main>
       </div>
     </div>
+    </>
   );
 }
 

@@ -19,7 +19,7 @@ import Wallet from "./components/wallet/Wallet";
 import Portfolio from "./components/portfolio/Portfolio";
 import Market from "./components/market/Market";
 import Leaderboard from "./components/leaderboard/Leaderboard";
-import EditProfile from "./components/dashboard/EditProfile";
+import YourProfile from "./components/dashboard/YourProfile";
 import { ThemeProvider } from "./context/ThemeContext";  
 
 
@@ -155,11 +155,11 @@ function App() {
             }
           />
           <Route
-            path="/edit-profile"
+            path="/your-profile"
             element={
               <AuthRoute>
                 <NoHeaderFooterLayout>
-                  <EditProfile />
+                  <YourProfile />
                 </NoHeaderFooterLayout>
               </AuthRoute>
             }
