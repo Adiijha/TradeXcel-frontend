@@ -72,3 +72,18 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #FF0000;
 }
+
+@keyframes lineAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Global styles for all animated lines */
+.animate-line {
+  width: 0%;
+  animation: lineAnimation 1s ease-out forwards;
+}
