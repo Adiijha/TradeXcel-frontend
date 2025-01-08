@@ -10,18 +10,34 @@ import wallet_w from "../../assets/wallet-w.png";
 import dark from "../../assets/dark.png";
 import lighty from "../../assets/light-y.png";
 import Alerts from "../alerts/Alerts.jsx"; // Importing Alerts component
+import { getAvatar } from "../../api/api.js";
 
 const Header = ({ darkMode, toggleDarkMode }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const [avatar, setAvatar] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleLogout = () => {
     Cookies.remove("accessToken");
     dispatch(logout());
     window.location.href = "/";
   };
+
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+        const data = await getAvatar();  // Call the API to get the avatar
+        setAvatar(data.avatar);  // Set the avatar URL to state (make sure your API returns `avatar`)
+      } catch (err) {
+        setError(err.message);  // Handle error
+      }
+    };
+
+    fetchAvatar();  // Fetch the avatar when the component mounts
+  }, []);
 
   // Close profile dropdown when clicking outside
   useEffect(() => {
@@ -102,7 +118,7 @@ const Header = ({ darkMode, toggleDarkMode }) => {
               darkMode ? "bg-gray-800" : "bg-white"
             } w-10 h-10 md:w-12 md:h-12 cursor-pointer overflow-hidden`}
           >
-            <img src={profile} alt="Profile" className="w-full h-full object-cover" />
+            <img src={avatar || "https://via.placeholder.com/120x120.png?text=No+Avatar"} alt="Profile" className="w-full h-full object-cover" />
           </div>
 
           {menuOpen && (

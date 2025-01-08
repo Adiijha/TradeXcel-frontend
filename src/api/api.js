@@ -206,6 +206,54 @@ export const changePasswordAndPin = async (formData) => {
   }
 };
 
+export const getAvatar = async () => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
+    const response = await axios.get(`${BASE_URL}/getavatar`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request
+      },
+    });
+
+    return response.data; // Successfully fetched the avatar
+  } catch (error) {
+    console.error("Error fetching user avatar:", error); // Log detailed error for debugging
+    const message =
+      error?.response?.data?.message || error.message || "Failed to fetch user avatar";
+    throw new Error(message); // Throw a user-friendly error message
+  }
+};
+
+export const updateAvatar = async (formData) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
+    // Sending formData directly without manually setting Content-Type
+    const response = await axios.patch(`${BASE_URL}/updateavatar`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request
+        // No need to manually set Content-Type when sending formData
+      },
+    });
+
+    return response.data; // Successfully updated the avatar
+  } catch (error) {
+    console.error("Error updating user avatar:", error); // Log detailed error for debugging
+    const message =
+      error?.response?.data?.message || error.message || "Failed to update user avatar";
+    throw new Error(message); // Throw a user-friendly error message
+  }
+};
+
 // Fetch stock data from the backend for a specific symbol
 export const getStockData = async (symbol) => {
   try {

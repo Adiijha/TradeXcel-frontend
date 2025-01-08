@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FaEdit, FaSave, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEdit, FaSave, FaEye, FaEyeSlash, FaTimes } from "react-icons/fa";
 import Header from "./Header.jsx";
 import Vheader from "./Vheader.jsx";
 import ThemeContext from "../../context/ThemeContext.jsx";
 import { Helmet } from "react-helmet";
-import { getUserProfile, updateUserProfile, changePasswordAndPin } from "../../api/api.js";
+import { getUserProfile, updateUserProfile, changePasswordAndPin, updateAvatar } from "../../api/api.js";
 
 function YourProfile() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -16,7 +16,7 @@ function YourProfile() {
     email: "",
     phoneNumber: "",
     dob: "",
-    profilePicture: null,
+    avatar: null,
   });
 
   const [securityData, setSecurityData] = useState({
@@ -26,6 +26,7 @@ function YourProfile() {
     newPin: "",
   });
 
+  const [initialData, setInitialData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [showPassword, setShowPassword] = useState({
     oldPassword: false,
@@ -39,18 +40,20 @@ function YourProfile() {
       try {
         const response = await getUserProfile();
         if (response.status === 200 && response.data) {
-          const { name, username, email, phoneNumber, dob, profilePicture } = response.data;
+          const { name, username, email, phoneNumber, dob, avatar } = response.data;
           const formattedDob = dob ? new Date(dob).toISOString().split("T")[0] : "";
 
-          setFormData((prev) => ({
-            ...prev,
+          const initial = {
             name: name || "",
             username: username || "",
             email: email || "",
             phoneNumber: phoneNumber || "",
             dob: formattedDob,
-            profilePicture: profilePicture || null,
-          }));
+            avatar: avatar || null,
+          };
+
+          setFormData(initial);
+          setInitialData(initial);
         } else {
           console.error("Failed to fetch profile data");
         }
@@ -71,105 +74,100 @@ function YourProfile() {
     }
   };
 
-  const handleProfilePictureChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData((prev) => ({
-        ...prev,
-        profilePicture: URL.createObjectURL(e.target.files[0]),
-      }));
-    }
-  };
-
   const handleEditToggle = () => {
     setIsEditing((prev) => !prev);
-  };
-
-  const handleSectionChange = (section) => {
-    // Auto-save before switching sections
     if (isEditing) {
-      handleSubmit();
-    }
-    setActiveSection(section);
-  };
-
-  const handleSubmit = async (e) => {
-    if (e) e.preventDefault();
-
-    const payload = {};
-
-    if (activeSection === "personal") {
-      if (formData.name || formData.username || formData.email || formData.phoneNumber || formData.dob || formData.profilePicture) {
-        payload.name = formData.name;
-        payload.username = formData.username;
-        payload.email = formData.email;
-        payload.phoneNumber = formData.phoneNumber;
-        payload.dob = formData.dob;
-        if (formData.profilePicture instanceof File) {
-          payload.profilePicture = formData.profilePicture;
-        }
-      }
-    }
-
-    if (activeSection === "security") {
-      const hasPassword = securityData.oldPassword && securityData.newPassword;
-      const hasPin = securityData.oldPin && securityData.newPin;
-
-      if (!hasPassword && !hasPin) {
-        alert("Please provide either password or PIN details to update.");
-        return;
-      }
-
-      if (hasPassword) {
-        if (!securityData.oldPassword || !securityData.newPassword) {
-          alert("Both old and new passwords are required to update the password.");
-          return;
-        }
-        payload.oldPassword = securityData.oldPassword;
-        payload.newPassword = securityData.newPassword;
-      }
-
-      if (hasPin) {
-        if (!securityData.oldPin || !securityData.newPin) {
-          alert("Both old and new PINs are required to update the PIN.");
-          return;
-        }
-        payload.oldPin = securityData.oldPin;
-        payload.newPin = securityData.newPin;
-      }
-    }
-
-    if (Object.keys(payload).length === 0) {
-      alert("Please provide information to update.");
-      return;
-    }
-
-    try {
-      if (activeSection === "personal") {
-        const response = await updateUserProfile(payload);
-        if (response.status === 200) {
-          alert("Personal information updated successfully!");
-        } else {
-          alert("Failed to update personal information. Please try again.");
-        }
-      } else if (activeSection === "security") {
-        const response = await changePasswordAndPin(payload);
-        if (response.status === 200) {
-          alert("Password and/or PIN updated successfully!");
-        } else {
-          alert("Failed to update password or PIN. Please try again.");
-        }
-      }
-    } catch (err) {
-      console.error("Error updating profile:", err);
-      alert("There was an error updating the information. Please try again.");
-    } finally {
-      setIsEditing(false);
+      // Reset to initial data on cancel
+      setFormData(initialData);
       setSecurityData({
         oldPassword: "",
         newPassword: "",
         oldPin: "",
         newPin: "",
       });
+    }
+  };
+
+  const handleSectionChange = (section) => {
+    if (isEditing) {
+      alert("Please save or cancel your current changes before switching sections.");
+      return;
+    }
+    setActiveSection(section);
+  };
+
+  const handleAvatarUpdate = async () => {
+    try {
+      if (!(formData.avatar instanceof File)) {
+        alert("Please select a valid file to upload.");
+        return;
+      }
+
+      const avatarPayload = new FormData();
+      avatarPayload.append("avatar", formData.avatar);
+
+      const avatarResponse = await updateAvatar(avatarPayload);
+      if (avatarResponse) {
+        alert("Avatar updated successfully!");
+        setFormData((prev) => ({ ...prev, avatar: avatarResponse.data.avatar }));
+      } else {
+        alert("Failed to update avatar.");
+      }
+    } catch (err) {
+      console.error("Error updating avatar:", err);
+      alert("There was an error updating the avatar. Please try again.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+
+    if (formData.avatar instanceof File) {
+      await handleAvatarUpdate();
+      return;
+    }
+
+    const payload = new FormData();
+
+    if (activeSection === "personal") {
+      if (formData.name || formData.username || formData.email || formData.phoneNumber || formData.dob) {
+        payload.append("name", formData.name);
+        payload.append("username", formData.username);
+        payload.append("email", formData.email);
+        payload.append("phoneNumber", formData.phoneNumber);
+        payload.append("dob", formData.dob);
+      }
+    }
+
+    try {
+      let response;
+      if (activeSection === "personal") {
+        response = await updateUserProfile(payload);
+      } else if (activeSection === "security") {
+        response = await changePasswordAndPin(payload);
+      }
+
+      if (response.status === 200) {
+        alert("Profile updated successfully!");
+        setInitialData({ ...formData });
+      } else {
+        alert("Failed to update profile. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error updating user profile:", err);
+      alert("There was an error updating the profile. Please try again.");
+    }
+
+    setIsEditing(false);
+  };
+
+  const handleAvatarChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setFormData((prev) => ({
+        ...prev,
+        avatar: file,
+      }));
     }
   };
 
@@ -216,7 +214,9 @@ function YourProfile() {
             darkMode ? "bg-gray-700 border-gray-600 text-gray-100" : "bg-gray-100 border-gray-300 text-gray-800"
           }`}
         >
-          {type === "password" ? "********" : (activeSection === "personal" ? formData[name] : securityData[name]) || "N/A"}
+          {type === "password"
+            ? "********"
+            : (activeSection === "personal" ? formData[name] : securityData[name]) || "N/A"}
         </p>
       )}
     </div>
@@ -256,14 +256,24 @@ function YourProfile() {
                     Security Info
                   </button>
                 </div>
-                <button
-                  onClick={isEditing ? handleSubmit : handleEditToggle}
-                  className={`flex items-center px-4 py-2 mt-4 sm:mt-0 rounded-full transition shadow-md ${
-                    isEditing ? "bg-green-500 hover:bg-green-600 text-white" : "bg-blue-500 hover:bg-blue-600 text-white"
-                  }`}
-                >
-                  {isEditing ? <FaSave className="mr-2" /> : <FaEdit className="mr-2" />} {isEditing ? "Save" : "Edit"}
-                </button>
+                <div className="flex items-center mt-3 md:mt-0 space-x-3">
+                  {isEditing && (
+                    <button
+                      onClick={handleEditToggle}
+                      className="flex items-center text-sm md:text-base px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white shadow-md"
+                    >
+                      <FaTimes className="mr-2" /> Cancel
+                    </button>
+                  )}
+                  <button
+                    onClick={isEditing ? handleSubmit : handleEditToggle}
+                    className={`flex items-center text-sm md:text-base px-4 py-2 rounded-full transition shadow-md ${
+                      isEditing ? "bg-green-500 hover:bg-green-600 text-white" : "bg-blue-500 hover:bg-blue-600 text-white"
+                    }`}
+                  >
+                    {isEditing ? <FaSave className="mr-2" /> : <FaEdit className="mr-2" />} {isEditing ? "Save" : "Edit"}
+                  </button>
+                </div>
               </div>
               <form id="profile-form" onSubmit={handleSubmit} className="p-4 sm:p-6 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {activeSection === "personal" && (
@@ -271,20 +281,24 @@ function YourProfile() {
                     <div className="col-span-1 md:col-span-2 flex flex-col items-center">
                       <div className="relative">
                         <img
-                          src={formData.profilePicture || "https://via.placeholder.com/120x120.png?text=Profile+Photo"}
+                          src={
+                            formData.avatar instanceof File
+                              ? URL.createObjectURL(formData.avatar)
+                              : formData.avatar || "https://via.placeholder.com/120x120.png?text=No+Avatar"
+                          }
                           alt="Profile Preview"
                           className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full transition-all duration-300 border-4 object-cover ${darkMode ? "border-gray-600" : "border-gray-200"}`}
                         />
                         {isEditing && (
                           <>
-                            <label htmlFor="profilePicture" className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer hover:bg-blue-600 transition">
+                            <label htmlFor="avatar" className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer hover:bg-blue-600 transition">
                               <FaEdit />
                             </label>
                             <input
                               type="file"
-                              id="profilePicture"
+                              id="avatar"
                               accept="image/*"
-                              onChange={handleProfilePictureChange}
+                              onChange={handleAvatarChange}
                               className="hidden"
                             />
                           </>
