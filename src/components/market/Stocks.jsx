@@ -122,7 +122,7 @@ function Stocks({ shortName, fullName, stockPrices, labels, percentageChange, pr
         <h1 className={`text-xl sm:text-2xl transition-all duration-300 ${darkMode ? "text-white" : "text-black"}`}>{fullName}</h1>
         <div className="h-1 w-44 bg-blue-500 rounded-full"></div>
         <div className="flex flex-col sm:flex-row sm:gap-3 mt-3">
-          <p className={` text-3xl sm:text-4xl mt-1 md:mt-3 transition-all duration-300 ${darkMode ? "text-white" : "text-black"}`}>₹ {price}</p>
+          <p className={` text-3xl sm:text-4xl mt-1 md:mt-3 transition-all duration-300 ${darkMode ? "text-white" : "text-black"}`}> {price}</p>
           <p className={isPositive ? (darkMode ? "text-green-400 mt-0 md:mt-6" : "text-green-500 mt-2 md:mt-6") : (darkMode ? "text-red-400 mt-0 md:mt-6" : "text-red-500 mt-0 md:mt-6")}>
             {formattedTodayChange} ({formattedPercentageChange})
           </p>

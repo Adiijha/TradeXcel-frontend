@@ -112,6 +112,30 @@ export const logoutUser = async (token) => {
 };
 
 // Function to get the logged-in user's profile
+export const getUserName = async () => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
+    const response = await axios.get(`${BASE_URL}/name`, {
+      withCredentials: true, // Send cookies if the backend uses them
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request
+      },
+    });
+
+    return response.data; // Successfully fetched profile data
+  } catch (error) {
+    console.error("Error fetching user name:", error); // Log detailed error for debugging
+    const message =
+      error?.response?.data?.message || error.message || "Failed to fetch user name";
+    throw new Error(message); // Throw a user-friendly error message
+  }
+};
+
 export const getUserProfile = async () => {
   try {
     const token = localStorage.getItem("authToken");
@@ -132,6 +156,52 @@ export const getUserProfile = async () => {
     console.error("Error fetching user profile:", error); // Log detailed error for debugging
     const message =
       error?.response?.data?.message || error.message || "Failed to fetch user profile";
+    throw new Error(message); // Throw a user-friendly error message
+  }
+}
+
+export const updateUserProfile = async (formData) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
+    const response = await axios.patch(`${BASE_URL}/update`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request
+      },
+    });
+
+    return response.data; // Successfully updated the profile
+  } catch (error) {
+    console.error("Error updating user profile:", error); // Log detailed error for debugging
+    const message =
+      error?.response?.data?.message || error.message || "Failed to update user profile";
+    throw new Error(message); // Throw a user-friendly error message
+  }
+};
+
+export const changePasswordAndPin = async (formData) => {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      throw new Error("Authentication token is missing. Please log in again.");
+    }
+
+    const response = await axios.patch(`${BASE_URL}/change-password-pin`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request
+      },
+    });
+
+    return response.data; // Successfully updated the password and pin
+  } catch (error) {
+    console.error("Error updating password and pin:", error); // Log detailed error for debugging
+    const message =
+      error?.response?.data?.message || error.message || "Failed to update password and pin";
     throw new Error(message); // Throw a user-friendly error message
   }
 };

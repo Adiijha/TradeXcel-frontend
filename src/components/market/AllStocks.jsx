@@ -25,7 +25,7 @@ function AllStocks({ setSelectedStock, darkMode, filteredStocks }) {
 
           return {
             ...stock,
-            price: `₹ ${stockData.currentPrice.toFixed(2)}`,
+            price: ` ${stockData.currentPrice.toFixed(2)}`,
             percentageChange: `${stockData.percentageChange || 0}%`, // Format as percentage
             todayChange: `${stockData.todayChange || 0}`, // Format as ₹ with 2 decimal places
             stockPrices: stockData.stockPrices,

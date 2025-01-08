@@ -3,32 +3,32 @@ import Header from '../dashboard/Header';
 import Vheader from '../dashboard/Vheader';
 import { Helmet } from 'react-helmet';
 import ThemeContext from '../../context/ThemeContext.jsx';
-import { getUserProfile } from '../../api/api';
+import { getUserName } from '../../api/api';
 
 function Wallet() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const [userName, setUserName] = useState(''); // State to store user's name
 
     useEffect(() => {
-      const fetchUserProfile = async () => {
+      const fetchUserName = async () => {
         try {
           const authToken = localStorage.getItem("authToken");
           if (!authToken) {
             throw new Error("Authentication token is missing. Please log in again.");
           }
     
-          const userProfile = await getUserProfile(); // Fetch user profile from API
-          console.log("Fetched User Profile:", userProfile); // Log the response for debugging
+          const name = await getUserName(); // Fetch user profile from API
+          console.log("Fetched User Profile:", name); // Log the response for debugging
     
           // Assuming the API returns { data: { name: "User Name" } }
-          setUserName(userProfile.data.name);
+          setUserName(name.data.name);
         } catch (error) {
-          console.error("Failed to fetch user profile:", error.message);
+          console.error("Failed to fetch user name:", error.message);
           setUserName('User'); // Fallback to 'User' if there's an error
         }
       };
     
-      fetchUserProfile(); // Fetch user profile when component mounts
+      fetchUserName(); // Fetch user profile when component mounts
     }, []); // Empty dependency array to run only once on mount
 
 
