@@ -4,33 +4,43 @@ import Vheader from '../dashboard/Vheader';
 import { Helmet } from 'react-helmet';
 import ThemeContext from '../../context/ThemeContext.jsx';
 import { getUserName } from '../../api/api';
+import { getAvatar } from '../../api/api';
+
 
 function Wallet() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-  const [userName, setUserName] = useState(''); // State to store user's name
+  const [userName, setUserName] = useState('');
+    const [avatar, setAvatar] = useState(null);
 
-    useEffect(() => {
-      const fetchUserName = async () => {
-        try {
-          const authToken = localStorage.getItem("authToken");
-          if (!authToken) {
-            throw new Error("Authentication token is missing. Please log in again.");
-          }
-    
-          const name = await getUserName(); // Fetch user profile from API
-          console.log("Fetched User Profile:", name); // Log the response for debugging
-    
-          // Assuming the API returns { data: { name: "User Name" } }
-          setUserName(name.data.name);
-        } catch (error) {
-          console.error("Failed to fetch user name:", error.message);
-          setUserName('User'); // Fallback to 'User' if there's an error
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const authToken = localStorage.getItem("authToken");
+        if (!authToken) {
+          throw new Error("Authentication token is missing. Please log in again.");
         }
-      };
-    
-      fetchUserName(); // Fetch user profile when component mounts
-    }, []); // Empty dependency array to run only once on mount
 
+        const name = await getUserName();
+        console.log("Fetched User Profile:", name);
+        setUserName(name.data.name);
+      } catch (error) {
+        console.error("Failed to fetch user name:", error.message);
+        setUserName('User');
+      }
+    };
+
+    const fetchAvatar = async () => {
+          try {
+            const data = await getAvatar();  // Call the API to get the avatar
+            setAvatar(data.avatar);  // Set the avatar URL to state (make sure your API returns `avatar`)
+          } catch (err) {
+            setError(err.message);  // Handle error
+          }
+        };
+    
+    fetchAvatar();
+    fetchUserName();
+  }, []);
 
   const [walletData, setWalletData] = useState({
     bonus: 0,
@@ -58,11 +68,11 @@ function Wallet() {
         <title>Wallet</title>
       </Helmet>
       <div
-        className={
+        className={`${
           darkMode
-            ? "bg-gray-800 text-white min-h-screen transition-all duration-300"
-            : "bg-white text-black min-h-screen transition-all duration-300"
-        }
+            ? "bg-gray-900 text-white"
+            : "bg-white text-black"
+        } min-h-screen transition-all duration-300`}
       >
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <div className="flex flex-col font-pop md:flex-row">
@@ -72,10 +82,20 @@ function Wallet() {
             <div className="h-2 w-20 md:w-32 bg-blue-500 rounded-full mb-6"></div>
 
             {/* Profile Section */}
-            <div className="bg-gray-900 text-white rounded-lg p-4 mb-6">
+            <div
+              className={`rounded-lg p-4 mb-6 transition-colors duration-300 ${
+                darkMode ? "bg-gray-800" : "bg-gray-100 shadow"
+              }`}
+            >
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
                 <div className="flex items-center mb-4 md:mb-0">
-                  <div className="bg-blue-500 text-white rounded-full h-12 w-12 flex items-center justify-center text-lg font-bold">A</div>
+                  <div
+                    className={`transition-all duration-300 rounded-full ${
+                      darkMode ? "bg-blue-500 text-gray-100" : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    <img className=" w-10 h-10 md:w-16 md:h-16 cursor-pointer rounded-full overflow-hidden" src={avatar || "https://via.placeholder.com/120x120.png?text=No+Avatar"} alt="" />
+                  </div>
                   <div className="ml-4">
                     <h2 className="text-2xl font-bold">{userName || 'User'}</h2>
                     <p className="text-sm text-red-400">Oops! Your KYC verification failed.</p>
@@ -87,25 +107,45 @@ function Wallet() {
 
             {/* Wallet Details */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-gray-700 text-white p-4 rounded-lg">
-                <h3 className="text-md md:text-xl font-semibold">Bonus</h3>
-                <p className="text-lg md:text-2xl my-2 font-bold">₹ {walletData.bonus}</p>
-                <button className="bg-purple-500 text-white text-xs md:text-lg px-4 py-2 mt-2 rounded hover:bg-purple-600">Redeem</button>
-              </div>
-              <div className="bg-gray-700 text-white p-4 rounded-lg">
-                <h3 className="text-md md:text-xl font-semibold">Deposit</h3>
-                <p className="text-lg md:text-2xl my-2 font-bold">₹ {walletData.deposit}</p>
-                <button className="bg-blue-500 text-white text-xs md:text-lg px-4 py-2 mt-2 rounded hover:bg-blue-600">Add Money</button>
-              </div>
-              <div className="bg-gray-700 text-white p-4 rounded-lg">
-                <h3 className="text-md md:text-xl font-semibold">Cash</h3>
-                <p className="text-lg md:text-2xl my-2 font-bold">₹ {walletData.cash}</p>
-                <button className="bg-green-500 text-white text-xs md:text-lg px-4 py-2 mt-2 rounded hover:bg-green-600">Verify to Withdraw</button>
-              </div>
-              <div className="bg-gray-700 text-white p-4 rounded-lg">
-                <h3 className="text-md md:text-xl font-semibold">Lifetime Earnings</h3>
-                <p className="text-lg md:text-2xl my-2 font-bold">₹ {walletData.lifetimeEarnings}</p>
-              </div>
+            {[
+  { label: 'Bonus', value: walletData.bonus, button: 'Redeem', color: 'purple' },
+  { label: 'Deposit', value: walletData.deposit, button: 'Add Money', color: 'blue' },
+  { label: 'Cash', value: walletData.cash, button: 'Verify to Withdraw', color: 'green' },
+  { label: 'Lifetime Earnings', value: walletData.lifetimeEarnings, button: null, color: null },
+].map((item, index) => (
+  <div
+    key={index}
+    className={`p-4 rounded-lg transition-colors duration-300 ${
+      darkMode ? "bg-gray-700" : "bg-gray-100 shadow"
+    }`}
+  >
+    <h3 className="text-md md:text-xl font-semibold">{item.label}</h3>
+    <p className="text-lg md:text-2xl my-2 font-bold">₹ {item.value}</p>
+    {item.button && (
+      <button
+        className={`text-xs md:text-lg px-4 py-2 mt-2 rounded transition-colors duration-300
+          ${item.button === 'Redeem' 
+            ? darkMode 
+              ? "bg-purple-500 text-white hover:bg-purple-400" 
+              : "bg-purple-600 text-white hover:bg-purple-500"
+            : item.button === 'Add Money'
+            ? darkMode 
+              ? "bg-blue-500 text-white hover:bg-blue-400"
+              : "bg-blue-600 text-white hover:bg-blue-500"
+            : item.button === 'Verify to Withdraw'
+            ? darkMode 
+              ? "bg-green-500 text-white hover:bg-green-400"
+              : "bg-green-600 text-white hover:bg-green-500"
+            : ""
+          }
+        `}
+      >
+        {item.button}
+      </button>
+    )}
+  </div>
+))}
+
             </div>
 
             {/* Transaction Filter Tabs */}
@@ -114,11 +154,13 @@ function Wallet() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 text-xs md:text-lg  rounded ${
+                  className={`px-4 py-2 text-xs md:text-lg rounded transition-colors duration-300 ${
                     activeTab === tab
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-black dark:text-white'
-                  } hover:bg-blue-400 transition`}
+                      ? "bg-blue-500 text-white"
+                      : darkMode
+                      ? "bg-gray-700 text-white"
+                      : "bg-gray-200 text-black"
+                  } hover:bg-blue-400`}
                 >
                   {tab}
                 </button>
@@ -126,13 +168,19 @@ function Wallet() {
             </div>
 
             {/* Transactions List */}
-            <div className="bg-gray-800 text-white rounded-lg p-0 md:p-4">
+            <div
+              className={`rounded-lg p-4 transition-colors duration-300 ${
+                darkMode ? "bg-gray-800" : "bg-white shadow"
+              }`}
+            >
               <h2 className="text-lg md:text-2xl font-semibold mb-4">Transactions</h2>
               <div className="space-y-4 overflow-y-auto max-h-80">
                 {filteredTransactions.map((transaction) => (
                   <div
                     key={transaction.id}
-                    className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-900 p-4 rounded-lg hover:bg-gray-700 transition"
+                    className={`flex flex-col md:flex-row justify-between items-start md:items-center p-4 rounded-lg transition-colors duration-300 ${
+                      darkMode ? "bg-gray-900 hover:bg-gray-700" : "bg-gray-100 hover:bg-gray-300"
+                    }`}
                   >
                     <div>
                       <h3 className="text-sm md:text-lg font-bold">{transaction.name}</h3>
@@ -140,10 +188,10 @@ function Wallet() {
                     </div>
                     <div
                       className={`text-sm md:text-lg font-bold mt-2 md:mt-0 ${
-                        transaction.amount > 0 ? 'text-green-400' : 'text-red-400'
+                        transaction.amount > 0 ? "text-green-400" : "text-red-400"
                       }`}
                     >
-                      {transaction.amount > 0 ? '+' : ''}{transaction.amount}
+                      {transaction.amount > 0 ? "+" : ""}{transaction.amount}
                     </div>
                   </div>
                 ))}
