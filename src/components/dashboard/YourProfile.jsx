@@ -108,7 +108,7 @@ function YourProfile() {
 
       const avatarResponse = await updateAvatar(avatarPayload);
       if (avatarResponse) {
-        alert("Avatar updated successfully!");
+        alert("Avatar updated successfully! Please reload the page to see the changes.");
         setFormData((prev) => ({ ...prev, avatar: avatarResponse.data.avatar }));
       } else {
         alert("Failed to update avatar.");
@@ -126,16 +126,16 @@ function YourProfile() {
       await handleAvatarUpdate();
       return;
     }
-
-    const payload = new FormData();
+    
+    const payload = {};
 
     if (activeSection === "personal") {
-      if (formData.name || formData.username || formData.email || formData.phoneNumber || formData.dob) {
-        payload.append("name", formData.name);
-        payload.append("username", formData.username);
-        payload.append("email", formData.email);
-        payload.append("phoneNumber", formData.phoneNumber);
-        payload.append("dob", formData.dob);
+      if (formData.name || formData.username || formData.email || formData.phoneNumber || formData.dob || formData.profilePicture) {
+        payload.name = formData.name;
+        payload.username = formData.username;
+        payload.email = formData.email;
+        payload.phoneNumber = formData.phoneNumber;
+        payload.dob = formData.dob;
       }
     }
 
