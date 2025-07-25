@@ -72,7 +72,7 @@ function SignIn() {
               Enter Your Details to Login
             </motion.p>
             <motion.p
-              className="text-lg font-pop pb-7"
+              className="text-lg text-gray-600 font-pop pb-7"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
