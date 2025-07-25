@@ -72,15 +72,19 @@ function SignIn() {
               Enter Your Details to Login
             </motion.p>
               <motion.p
-              className="text-lg font-pop pb-7"
+              className="text-lg font-pop pb-3"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             >
               Login Credentials for Testing Purposes: 
+              </br>
                 Username : bot123
+            </br>
                 Password : bot123!@#
+    </br>
                 PIN : 1234
+    </br>
             </motion.p>
           </div>
       <motion.div
